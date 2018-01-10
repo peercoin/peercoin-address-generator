@@ -1,0 +1,57 @@
+.IndexPage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  .logo {
+    width: 66vmin;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .btn-start {
+    position: relative;
+    width: 45vmin;
+    height: 45vmin;
+    margin: 5rem auto 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 7vmin;
+    font-weight: 300;
+    background: #3CB054;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50%;
+    box-shadow:
+      0 3px 30px rgba(#000, 0.07),
+      0 5px 5px rgba(#000, 0.07);
+    
+    &:before {
+      content: '';
+      position: absolute;
+      top: 5%;
+      left: 5%;
+      box-shadow: 0 0 0 3px #fff inset;
+      border-radius: 50%;
+      width: 90%;
+      height: 90%;
+    }
+  }
+
+  .footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+
+    .footer-link {
+      font-size: 1.5rem;
+      color: rgba(#404040, 0.38);
+    }
+  }
+}

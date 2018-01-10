@@ -1,0 +1,26 @@
+<div class="IndexPage page page-entering">
+  <div class="container">
+    <img src="/img/logo.svg" alt="Peercoin" class="logo">
+    <h1 class="title">Wallet Generator</h1>
+    <h2 class="subtitle">To generate a new wallet, simply click in the button below and follow the instructions.</h2>
+    <a href="#" on:click="goto('/instructions')" class="btn-start">
+      Start
+    </a>
+  </div>
+  <footer class="footer">
+    <a href="#" class="footer-link">about</a>
+    <a href="https://peercoin.net/" target="_blank" class="footer-link">peercoin.net</a>
+  </footer>
+</div>
+
+<script>
+  import roadtrip from 'roadtrip';
+
+  export default {
+    methods: {
+      goto(path) {
+        roadtrip.goto(path);
+      }
+    }
+  }
+</script>

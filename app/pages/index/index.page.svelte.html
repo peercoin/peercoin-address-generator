@@ -3,23 +3,35 @@
     <img src="/img/logo.svg" alt="Peercoin" class="logo">
     <h1 class="title">Wallet Generator</h1>
     <h2 class="subtitle">To generate a new wallet, simply click in the button below and follow the instructions.</h2>
-    <a href="#" on:click="goto('/instructions')" class="btn-start">
+    <a href="#" on:click="generateWallet()" class="btn-start">
       Start
     </a>
   </div>
   <footer class="footer">
-    <a href="#" class="footer-link">about</a>
+    <a href="#" on:click="goto('/about')" class="footer-link">about</a>
     <a href="https://peercoin.net/" target="_blank" class="footer-link">peercoin.net</a>
   </footer>
 </div>
 
 <script>
   import roadtrip from 'roadtrip';
+  import bitcoin from 'bitcoinjs-lib';
+  import toBuffer from 'typedarray-to-buffer';
+  import { peercoinNetwork } from '../../helpers/network.helper';
 
   export default {
     methods: {
       goto(path) {
         roadtrip.goto(path);
+      },
+      generateWallet() {
+        function rng () { return toBuffer(crypto.getRandomValues(new Uint8Array(32))) }
+        const keyPair = bitcoin.ECPair.makeRandom({
+          network: peercoinNetwork,
+          rng: rng
+        });
+        console.log(keyPair.toWIF());
+        console.log(keyPair.getAddress());
       }
     }
   }

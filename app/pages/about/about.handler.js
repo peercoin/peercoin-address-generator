@@ -1,10 +1,10 @@
-import UserDetails from './about.page.svelte';
+import About from './about.page.svelte';
 
-export default class UserDetailsHandler {
+export default class AboutHandler {
   get route() {
     return {
       enter(current, previous) {
-        this.component = new UserDetails({
+        this.component = new About({
           target: document.getElementById('app')
         });
         document.body.style.overflow = 'hidden';

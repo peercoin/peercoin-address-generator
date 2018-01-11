@@ -1,10 +1,10 @@
-import UserDetails from './instructions.page.svelte';
+import Generator from './generator.page.svelte';
 
-export default class UserDetailsHandler {
+export default class GeneratorHandler {
   get route() {
     return {
       enter(current, previous) {
-        this.component = new UserDetails({
+        this.component = new Generator({
           target: document.getElementById('app')
         });
       },

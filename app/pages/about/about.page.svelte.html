@@ -1,0 +1,35 @@
+<div class="AboutPage page page-entering" ref:page on:animationend="pow(1)">
+  <header class="header">
+    <a href="/" on:click="goto('/', event)" class="btn-back">Back</a>
+  </header>
+  <div class="container">
+    <div class="title">About</div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fringilla ex in risus fringilla viverra. Donec egestas mauris eu lobortis consectetur. Vestibulum cursus sit amet ipsum vel facilisis. Pellentesque eget ullamcorper felis. Aliquam elementum fringilla lacinia. Praesent suscipit est leo, ornare efficitur tortor lacinia nec. Curabitur eget sodales risus. Donec eget sem at elit malesuada tempus sit amet nec nisi. Maecenas maximus suscipit risus, at congue arcu faucibus a. Nunc nec interdum ipsum. Phasellus tincidunt scelerisque sapien. </p>
+
+    <div class="title">Peercoin</div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fringilla ex in risus fringilla viverra. Donec egestas mauris eu lobortis consectetur. Vestibulum cursus sit amet ipsum vel facilisis. Pellentesque eget ullamcorper felis. Aliquam elementum fringilla lacinia. Praesent suscipit est leo, ornare efficitur tortor lacinia nec. Curabitur eget sodales risus. Donec eget sem at elit malesuada tempus sit amet nec nisi. Maecenas maximus suscipit risus, at congue arcu faucibus a. Nunc nec interdum ipsum. Phasellus tincidunt scelerisque sapien. </p>
+
+    <div class="title">Disclaimer</div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fringilla ex in risus fringilla viverra. Donec egestas mauris eu lobortis consectetur. Vestibulum cursus sit amet ipsum vel facilisis. Pellentesque eget ullamcorper felis. Aliquam elementum fringilla lacinia. Praesent suscipit est leo, ornare efficitur tortor lacinia nec. Curabitur eget sodales risus. Donec eget sem at elit malesuada tempus sit amet nec nisi. Maecenas maximus suscipit risus, at congue arcu faucibus a. Nunc nec interdum ipsum. Phasellus tincidunt scelerisque sapien. </p>
+
+    <div class="title">Credits</div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fringilla ex in risus fringilla viverra. Donec egestas mauris eu lobortis consectetur. Vestibulum cursus sit amet ipsum vel facilisis. Pellentesque eget ullamcorper felis. Aliquam elementum fringilla lacinia. Praesent suscipit est leo, ornare efficitur tortor lacinia nec. Curabitur eget sodales risus. Donec eget sem at elit malesuada tempus sit amet nec nisi. Maecenas maximus suscipit risus, at congue arcu faucibus a. Nunc nec interdum ipsum. Phasellus tincidunt scelerisque sapien. </p>
+  </div>
+</div>
+
+<script>
+  import roadtrip from 'roadtrip';
+
+  export default {
+    methods: {
+      goto(path, e) {
+        e.preventDefault();
+        roadtrip.goto(path);
+      },
+      pow() {
+        document.body.style = '';
+        this.refs.page.classList.remove('page-entering');
+      }
+    }
+  }
+</script>

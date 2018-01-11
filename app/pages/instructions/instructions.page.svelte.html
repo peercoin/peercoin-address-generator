@@ -1,14 +1,43 @@
-<div class="InstructionsPage page page-entering">
-  <h1>Hello!!!</h1>
+<div class="InstructionsPage page page-entering" on:touchmove="pew(event)">
+  <div class="container">
+    <h1 class="title">Swipe finger for randomness.</h1>
+    <h2 class="subtitle">Use your finger to start swiping randomly along the screen, this helps with the uniqueness when generating your wallet.</h2>
+    <h2 class="subtitle"><b>You can start at anytime.</b> We will let you know once the proccess is finished.</h2>
+    <img src="img/hand.svg" class="instruction-hand">
+  </div>
 </div>
 
 <script>
   import roadtrip from 'roadtrip';
 
   export default {
+    data() {
+      return {
+        lastTouch: +new Date(),
+        touches: 0,
+        totalTouches: 200 + crypto.getRandomValues(new Uint8Array(10))[5]
+      }
+    },
     methods: {
       goto(path) {
         roadtrip.goto(path);
+      },
+      pew(e) {
+        if (+new Date() - this.get('lastTouch') < 100) {
+          return;
+        }
+
+        if (this.get('touches') >= this.get('totalTouches')) {
+          console.log('Ended!');
+          return;
+        }
+
+        console.log(e.targetTouches[0].pageX, e.targetTouches[0].pageY, this.get('touches'), this.get('totalTouches'));
+
+        this.set({
+          lastTouch: +new Date(),
+          touches: +this.get('touches') + 1
+        });
       }
     }
   }

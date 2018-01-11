@@ -5,16 +5,11 @@ export default class IndexHandler {
     return {
       enter(current, previous) {
         this.component = new Index({
-          target: document.getElementById('app'),
-          data: {
-            name: 'world'
-          }
+          target: document.getElementById('app')
         });
-        console.log('Entered index!');
       },
       leave(current, previous) {
         this.component.destroy();
-        console.log('Left index!');
       }
     }
   }

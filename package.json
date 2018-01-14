@@ -10,10 +10,7 @@
     "build": "brunch build --production"
   },
   "dependencies": {
-    "bitcoinjs-lib": "^3.3.2",
-    "buffer": "^5.0.8",
-    "roadtrip": "^0.5.1",
-    "typedarray-to-buffer": "^3.1.2"
+    "roadtrip": "^0.5.1"
   },
   "devDependencies": {
     "auto-reload-brunch": "^2",

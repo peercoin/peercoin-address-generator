@@ -15,9 +15,6 @@
 
 <script>
   import roadtrip from 'roadtrip';
-  import bitcoin from 'bitcoinjs-lib';
-  import toBuffer from 'typedarray-to-buffer';
-  import { peercoinNetwork } from '../../helpers/network.helper';
 
   export default {
     methods: {
@@ -25,13 +22,7 @@
         roadtrip.goto(path);
       },
       generateWallet() {
-        function rng () { return toBuffer(crypto.getRandomValues(new Uint8Array(32))) }
-        const keyPair = bitcoin.ECPair.makeRandom({
-          network: peercoinNetwork,
-          rng: rng
-        });
-        console.log(keyPair.toWIF());
-        console.log(keyPair.getAddress());
+       // asd
       }
     }
   }

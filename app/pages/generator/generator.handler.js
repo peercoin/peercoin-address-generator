@@ -1,10 +1,10 @@
-import Index from './index.page.svelte';
+import Generator from './generator.page.svelte';
 
-export default class IndexHandler {
+export default class GeneratorHandler {
   get route() {
     return {
       enter(current, previous) {
-        this.component = new Index({
+        this.component = new Generator({
           target: document.getElementById('app')
         });
       },

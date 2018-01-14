@@ -1,3 +1,6 @@
+@import '../../styles/_variables';
+@import '../../styles/_viewports';
+
 .IndexPage {
   position: relative;
   display: flex;
@@ -20,7 +23,7 @@
     align-items: center;
     font-size: 7vmin;
     font-weight: 300;
-    background: #3CB054;
+    background: $color_primary;
     color: #fff;
     text-decoration: none;
     border-radius: 50%;
@@ -51,7 +54,7 @@
 
     .footer-link {
       font-size: 1.5rem;
-      color: rgba(#404040, 0.38);
+      color: rgba($color_black, 0.38);
     }
   }
 }

@@ -1,3 +1,6 @@
+@import '_variables';
+@import '_viewports';
+
 *, *:before, *:after {
   box-sizing: border-box;
 }
@@ -32,16 +35,16 @@ main {
 .title {
   font-size: 7vmin;
   font-weight: 300;
-  color: #404040;
+  color: $color_black;
 }
 
 .subtitle {
   font-size: 5vmin;
   font-weight: normal;
-  color: rgba(#404040, 0.38);
+  color: rgba($color_black, 0.38);
 
   b {
-    color: rgba(#404040, 0.68);
+    color: rgba($color_black, 0.68);
   }
 }
 
@@ -67,8 +70,8 @@ main {
 }
 
 .btn {
-  border: 1px solid #3CB054;
-  color: #3CB054;
+  border: 1px solid $color_primary;
+  color: $color_primary;
   border-radius: 100px;
   padding: 1rem 2rem;
   background: none;

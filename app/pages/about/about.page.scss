@@ -1,3 +1,6 @@
+@import '../../styles/_variables';
+@import '../../styles/_viewports';
+
 .AboutPage {
   padding-top: 52px;
   text-align: left;
@@ -12,12 +15,12 @@
     left: 0;
     width: 100%;
     height: 52px;
-    color: #3CB054;
+    color: $color_primary;
     background: #fff;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 1px 10px rgba(#404040, 0.10);
+    box-shadow: 0 1px 10px rgba($color_black, 0.10);
     padding: 1rem;
   }
 }

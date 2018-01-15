@@ -4,6 +4,7 @@ export default class IndexHandler {
   get route() {
     return {
       enter(current, previous) {
+        window.scrollTo(0, 1);
         this.component = new Index({
           target: document.getElementById('app')
         });

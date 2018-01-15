@@ -1,43 +1,88 @@
-<div class="InstructionsPage page page-entering" on:touchmove="pew(event)">
-  <div class="container">
-    <h1 class="title">Swipe finger for randomness.</h1>
-    <h2 class="subtitle">Use your finger to start swiping randomly along the screen, this helps with the uniqueness when generating your wallet.</h2>
-    <h2 class="subtitle"><b>You can start at anytime.</b> We will let you know once the proccess is finished.</h2>
-    <img src="img/hand.svg" class="instruction-hand">
+<div class="GeneratorPage page page-entering" on:touchmove="handleSeed(event)">
+  <div class="instructions {{(hasStarted) ? '' : 'active'}}">
+    <div class="container">
+      <h1 class="title">Swipe finger for randomness.</h1>
+      <h2 class="subtitle">Use your finger to start swiping randomly along the screen, this helps with the uniqueness when generating your wallet.</h2>
+      <h2 class="subtitle"><b>You can start at anytime.</b> We will let you know once the proccess is finished.</h2>
+      <img src="img/hand.svg" class="instruction-hand">
+    </div>
+  </div>
+  <div class="generator" ref:generator>
+    <div class="progress-label {{(seedPercentage > 44) ? 'white' : ''}}">
+      <h1 class="title">Keep Swiping</h1>
+      <div class="percentage">{{Math.floor(seedPercentage)}}%</div>
+    </div>
+    <div class="progress" style="transform: translate3d(0, {{100 - seedPercentage}}%, 0)">
+      <div class="seed">{{obfuscatedPartialSeed}}</div>
+    </div>
   </div>
 </div>
 
 <script>
   import roadtrip from 'roadtrip';
+  import shajs from 'sha.js';
 
   export default {
     data() {
       return {
         lastTouch: +new Date(),
         touches: 0,
-        totalTouches: 200 + crypto.getRandomValues(new Uint8Array(10))[5]
+        totalTouches: 150 + crypto.getRandomValues(new Uint8Array(10))[5],
+        hasStarted: false,
+        hasFinished: false,
+        seedPercentage: 0,
+        touchList: [],
+        // This is used only for visual purposes and don't play any role
+        // in final wallet security
+        obfuscatedPartialSeed: ''
       }
     },
     methods: {
       goto(path) {
         roadtrip.goto(path);
       },
-      pew(e) {
-        if (+new Date() - this.get('lastTouch') < 100) {
+      handleSeed(e) {
+        // If the event fired before 80ms from last one,
+        // simply ignore it
+        if (+new Date() - this.get('lastTouch') < 80) {
           return;
         }
 
+        // If the number of touches surpassed the maximum needed,
+        // also ignore it and generate wallet
         if (this.get('touches') >= this.get('totalTouches')) {
           console.log('Ended!');
           return;
         }
+        
+        const touches = +this.get('touches');
+        const totalTouches = +this.get('totalTouches');
+        const touchList = this.get('touchList');
+        const userPoint = e.touches[0].pageX * e.touches[0].pageY;
 
-        console.log(e.targetTouches[0].pageX, e.targetTouches[0].pageY, this.get('touches'), this.get('totalTouches'));
-
+        touchList.push(userPoint);
+        
         this.set({
           lastTouch: +new Date(),
-          touches: +this.get('touches') + 1
+          touches: touches + 1,
+          hasStarted: true,
+          seedPercentage: (touches + 1) * 100 / totalTouches,
+          touchList: touchList,
+          obfuscatedPartialSeed: shajs('sha256').update(touchList.join('')).digest('hex').repeat(10)
         });
+
+        console.log(this.get('obfuscatedPartialSeed'));
+
+        this.addVisualPoint(e.touches[0].pageX, e.touches[0].pageY);
+      },
+      addVisualPoint(x, y) {
+        const point = document.createElement('div');
+
+        point.classList.add('point');
+        point.style.top = `${y}px`;
+        point.style.left = `${x}px`;
+
+        this.refs.generator.appendChild(point);
       }
     }
   }

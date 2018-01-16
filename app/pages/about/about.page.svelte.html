@@ -1,4 +1,4 @@
-<div class="AboutPage page page-entering" ref:page on:animationend="pow(1)">
+<div class="AboutPage page page-entering" ref:page on:animationend="enableScroll()">
   <header class="header">
     <a href="/" on:click="goto('/', event)" class="btn-back">Back</a>
   </header>
@@ -26,7 +26,7 @@
         e.preventDefault();
         roadtrip.goto(path);
       },
-      pow() {
+      enableScroll() {
         document.body.style = '';
         this.refs.page.classList.remove('page-entering');
       }

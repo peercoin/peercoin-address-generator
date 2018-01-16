@@ -1,0 +1,64 @@
+<div class="WalletPage page page-entering" ref:page>
+  <h1 class="title">
+    <div class="checkmark"><img src="/img/check.svg" alt="Success"></div> Wallet generated!
+  </h1>
+  
+  <img src="{{publicQRCode}}" alt="Public Address QR Code" class="qr-code">
+
+  <div class="wallet-details">
+    <div class="section">
+      <div class="section-title">Address</div>
+      <div class="section-value">{{publicAddress}}</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Private Key
+        <button class="btn btn-section" on:click="togglePrivateKeyVisibility()">{{(isPrivateKeyVisible) ? 'Hide' : 'Show'}}</button>
+      </div>
+      {{#if !isPrivateKeyVisible}}
+        <div class="section-value grey">Make sure nobody is watching.</div>
+      {{/if}}
+      {{#if isPrivateKeyVisible}}
+        <div class="section-value">{{privateKey}}</div>
+      {{/if}}
+    </div>
+  </div>
+
+  <button class="btn clear-data" on:click="reset()">Clear data and start again.</button>
+</div>
+
+<script>
+  import roadtrip from 'roadtrip';
+  import QRious from 'qrious';
+  import { Store } from 'svelte/store.umd.js';
+
+  export default {
+    data() {
+      return {
+        publicAddress: window.store.get('publicAddress'),
+        privateKey: window.store.get('privateKey'),
+        publicQRCode: new QRious({value: window.store.get('publicAddress') || 'just a sample lorem ipsum dolor sit', size: 200 * 4, level: 'L'}).toDataURL(),
+        isPrivateKeyVisible: false
+      }
+    },
+    methods: {
+      goto(path, e) {
+        if (e) {
+          e.preventDefault();
+        }
+        roadtrip.goto(path);
+      },
+      togglePrivateKeyVisibility() {
+        this.set({isPrivateKeyVisible: !this.get('isPrivateKeyVisible')})
+      },
+      reset() {
+        delete window.store;
+        window.store = null;
+        window.store = new Store({
+          publicAddress: '',
+          privateKey: ''
+        });
+        this.goto('/');
+      }
+    }
+  }
+</script>

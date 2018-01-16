@@ -10,6 +10,7 @@
     "build": "brunch build --production"
   },
   "dependencies": {
+    "qrious": "^4.0.2",
     "roadtrip": "^0.5.1"
   },
   "devDependencies": {

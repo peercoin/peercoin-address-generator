@@ -20,28 +20,39 @@
 
 <script>
   import roadtrip from 'roadtrip';
-  import shajs from 'sha.js';
+  import BigInteger from '../../helpers/peercoin/BigInteger';
+  import Peercoin from '../../helpers/peercoin/Peercoin';
+  import Base58 from '../../helpers/peercoin/Base58';
+  import ECurve from '../../helpers/peercoin/ECurve';
 
   export default {
     data() {
       return {
         lastTouch: +new Date(),
         touches: 0,
-        totalTouches: 150 + crypto.getRandomValues(new Uint8Array(10))[5],
+        totalTouches: 20, // 150 + crypto.getRandomValues(new Uint8Array(10))[5],
         hasStarted: false,
         hasFinished: false,
         seedPercentage: 0,
         touchList: [],
+        initialTouchTime: 0,
+        finalTouchTime: 0,
         // This is used only for visual purposes and don't play any role
         // in final wallet security
         obfuscatedPartialSeed: ''
       }
     },
     methods: {
-      goto(path) {
+      goto(path, e) {
+        if (e) {
+          e.preventDefault();
+        }
         roadtrip.goto(path);
       },
       handleSeed(e) {
+        const touches = +this.get('touches');
+        const totalTouches = +this.get('totalTouches');
+
         // If the event fired before 80ms from last one,
         // simply ignore it
         if (+new Date() - this.get('lastTouch') < 80) {
@@ -50,13 +61,27 @@
 
         // If the number of touches surpassed the maximum needed,
         // also ignore it and generate wallet
-        if (this.get('touches') >= this.get('totalTouches')) {
-          console.log('Ended!');
+        if (touches >= totalTouches) {
+          // If this is the last computed touch, save its time for seed usage
+          if (touches == totalTouches) {
+            this.set({ initialTouchTime: +new Date() });
+          }
+          // Finally, generate wallet using computed seed.
+          this.generateWallet(
+            this.get('initialTouchTime'),
+            this.get('finalTouchTime'),
+            this.get('touchList')
+          );
           return;
         }
-        
-        const touches = +this.get('touches');
-        const totalTouches = +this.get('totalTouches');
+
+        // If first seed point, save its time for seed usage
+        if (touches === 0) {
+          this.set({ initialTouchTime: +new Date() });
+        }
+
+        // If none of the above conditionals triggered, keep with
+        // seed calculation  
         const touchList = this.get('touchList');
         const userPoint = e.touches[0].pageX * e.touches[0].pageY;
 
@@ -68,10 +93,8 @@
           hasStarted: true,
           seedPercentage: (touches + 1) * 100 / totalTouches,
           touchList: touchList,
-          obfuscatedPartialSeed: shajs('sha256').update(touchList.join('')).digest('hex').repeat(10)
+          obfuscatedPartialSeed: Peercoin.Crypto.SHA256(touchList.join(''), null).repeat(10)
         });
-
-        console.log(this.get('obfuscatedPartialSeed'));
 
         this.addVisualPoint(e.touches[0].pageX, e.touches[0].pageY);
       },
@@ -83,6 +106,43 @@
         point.style.left = `${x}px`;
 
         this.refs.generator.appendChild(point);
+      },
+      generateWallet(initialTime, finalTime, touchList) {
+        // Seed
+        const secret = `${initialTime}${touchList.join('')}${finalTime}`;
+        console.log(secret);
+
+        // Generating peercoin address/priv. key
+        const secretHash = Peercoin.Crypto.SHA256("" + secret);
+        let privateKeyBNP2TH = BigInteger.fromByteArrayUnsigned(Peercoin.Crypto.hexToBytes(secretHash));
+        let pubKeyP2TH = ECurve.getPublicKey(privateKeyBNP2TH);
+        let pub_keyP2TH = ((pubKeyP2TH.yParity === "even") ? "02" : "03") + pubKeyP2TH.x.toString();    
+        let sha = Peercoin.Crypto.SHA256(Peercoin.Crypto.hexToBytes(pub_keyP2TH), null);
+        let hash160 = Peercoin.Crypto.RIPEMD160(Peercoin.Crypto.hexToBytes(sha), null);
+        let hashAndBytes = Peercoin.Crypto.hexToBytes(hash160);
+        hashAndBytes.unshift(Peercoin.Address.networkVersion);//Peercoin Public Address lead Hex value 
+        let versionAndRipe = Peercoin.Crypto.bytesToHex(hashAndBytes);
+        let check = this.computeChecksum(versionAndRipe);
+        let address = Base58.encode(Peercoin.Crypto.hexToBytes(versionAndRipe + check.checksum));
+        
+        let pkWIF = "B7" + secretHash + "01"; //compressionflag
+        let checkpr = this.computeChecksum(pkWIF);
+        let addresspriv = Base58.encode(Peercoin.Crypto.hexToBytes(pkWIF + checkpr.checksum));
+
+        // Send generated Address to new page
+        window.store.set({
+          publicAddress: address,
+          privateKey: addresspriv
+        });
+        this.goto('/wallet');
+      },
+      computeChecksum(hx) {
+        var firstSHA = Peercoin.Crypto.SHA256(Peercoin.Crypto.hexToBytes(hx));
+        var secondSHA = Peercoin.Crypto.SHA256(Peercoin.Crypto.hexToBytes(firstSHA));
+        return {
+          checksum: secondSHA.substr(0,8).toUpperCase(),
+          nonChecksum: secondSHA.substr(8,secondSHA.length).toUpperCase()
+        };
       }
     }
   }

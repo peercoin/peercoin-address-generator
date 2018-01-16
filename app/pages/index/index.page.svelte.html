@@ -18,7 +18,10 @@
 
   export default {
     methods: {
-      goto(path) {
+      goto(path, e) {
+        if (e) {
+          e.preventDefault();
+        }
         roadtrip.goto(path);
       },
       generateWallet() {

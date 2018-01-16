@@ -1,0 +1,92 @@
+@import '../../styles/_variables';
+@import '../../styles/_viewports';
+
+.WalletPage {
+  padding-top: 15px;
+  text-align: left;
+
+  .title {
+    text-align: center;
+
+    .checkmark {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 42px;
+      height: 42px;
+      margin-right: 1rem;
+      border-radius: 50%;
+      border: 1px solid rgba($color_primary, 0.18);
+  
+      img {
+        width: 17px;
+      }
+    }
+  }
+
+  .qr-code {
+    display: block;
+    width: 50vmin;
+    margin: 2rem auto;
+  }
+
+  .wallet-details {
+    margin-top: 22px;
+    background: #fff;
+    box-shadow: 0 5px 20px rgba(#000, 0.16);
+
+    .section {
+      padding: 1.5rem 1rem;
+
+      &:not(:last-child) {
+        border-bottom: 4px solid rgba($color_black, 0.04);
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+        font-weight: 300;
+      }
+
+      .section-value {
+        display: flex;
+        align-items: center;
+        margin-top: 1rem;
+        min-height: 4rem;
+        color: $color_primary;
+        word-break: break-all;
+        font-family: 'Roboto Mono', monospace;
+        font-size: 1.4rem;
+        animation: fade-in-up 0.5s cubic-bezier(.17,.67,.25,.99) forwards;
+
+        &.grey {
+          font-family: $app-font;
+          font-weight: normal;
+          color: rgba($color_black, 0.38);
+        }
+      }
+    }
+  }
+
+  .btn-section {
+    min-width: 9rem;
+    text-align: center;
+    margin-left: 1rem;
+    padding: 0.5rem 1.5rem;
+    font-size: 1.3rem;
+  }
+
+  .clear-data {
+    display: block;
+    margin: 2rem auto 0;
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    transform: translate3d(0, 10px, 0);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}

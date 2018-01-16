@@ -23,7 +23,9 @@
   export default {
     methods: {
       goto(path, e) {
-        e.preventDefault();
+        if (e) {
+          e.preventDefault();
+        }
         roadtrip.goto(path);
       },
       enableScroll() {

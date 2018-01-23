@@ -6,9 +6,12 @@
   <img src="{{publicQRCode}}" alt="Public Address QR Code" class="qr-code">
 
   <div class="wallet-details">
+    <div class="share-btn" on:click="openShareMenu()">
+      <img src="/img/share.svg" alt="Share">
+    </div>
     <div class="section">
       <div class="section-title">Address</div>
-      <div class="section-value">{{publicAddress}}</div>
+      <div class="section-value selectable">{{publicAddress}}</div>
     </div>
     <div class="section">
       <div class="section-title">Private Key
@@ -18,12 +21,23 @@
         <div class="section-value grey">Make sure nobody is watching.</div>
       {{/if}}
       {{#if isPrivateKeyVisible}}
-        <div class="section-value">{{privateKey}}</div>
+        <div class="section-value selectable">{{privateKey}}</div>
       {{/if}}
     </div>
   </div>
 
   <button class="btn clear-data" on:click="reset()">Clear data and start again.</button>
+
+  <nav class="share-menu {{(isShareMenuOpen) ? 'active' : ''}}">
+    <div class="overlay" on:click="closeShareMenu()"></div>
+    <ul class="menu">
+      <li><a href="{{actionDownloadTextFile()}}" download="peercoin_wallet.txt">Save .txt locally</a></li>
+      <li><a href="#" on:click="actionCopyToClipboard(event)">Copy <b>address/priv. key</b> to clipboard</a></li>
+      <li><a href="mailto:your-address-here@email.com">Send via email</a></li>
+      <li><a href="{{actionDownloadJSONFile()}}" download="peercoin_wallet.json">Save JSON data</a></li>
+      <li class="disabled"><a href="#">Choose paper wallet model (soon)</a></li>
+    </ul>
+  </nav>
 </div>
 
 <script>
@@ -37,7 +51,8 @@
         publicAddress: window.store.get('publicAddress'),
         privateKey: window.store.get('privateKey'),
         publicQRCode: new QRious({value: window.store.get('publicAddress') || 'just a sample lorem ipsum dolor sit', size: 200 * 4, level: 'L'}).toDataURL(),
-        isPrivateKeyVisible: false
+        isPrivateKeyVisible: false,
+        isShareMenuOpen: false
       }
     },
     methods: {
@@ -58,6 +73,59 @@
           privateKey: ''
         });
         this.goto('/');
+      },
+      openShareMenu() {
+        this.set({isShareMenuOpen: true});
+      },
+      closeShareMenu() {
+        this.set({isShareMenuOpen: false});
+      },
+      actionCopyToClipboard(e) {
+        e.preventDefault();
+
+        const textArea = document.createElement("textarea");
+        const keys = `${this.get('publicAddress')} /// ${this.get('privateKey')}`;
+        
+        textArea.classList.add('clipboard');
+        textArea.value = keys;
+
+        document.body.appendChild(textArea);
+        textArea.select();
+
+        try {
+          document.execCommand('copy');
+          console.log('Copied!');
+        } catch (err) {
+          console.log('Oops, unable to copy');
+        }
+
+        document.body.removeChild(textArea);
+      },
+      actionPrint(e) {
+        e.preventDefault();
+        window.print();
+      }
+    },
+    helpers: {
+      actionDownloadTextFile() {
+        const text = `
+        Date issued: ${new Date()}
+        
+        Public Address: ${window.store.get('publicAddress')}
+        
+        Private Key (DO NOT SHARE): ${window.store.get('privateKey')}
+        `;
+
+        return URL.createObjectURL(new Blob([text], {type: 'text/plain'}))
+      },
+      actionDownloadJSONFile() {
+        const data = {
+          dateIssued: new Date(),
+          publicAddress: window.store.get('publicAddress'),
+          privateKey: window.store.get('privateKey')
+        };
+
+        return URL.createObjectURL(new Blob([JSON.stringify(data)], {type: 'application/json'}))
       }
     }
   }

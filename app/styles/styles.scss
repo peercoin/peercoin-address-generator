@@ -11,6 +11,13 @@ html, body {
   min-height: 100%;
 }
 
+*:not(.selectable) {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 body {
   margin: 0;
   padding: 0;

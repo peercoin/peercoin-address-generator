@@ -4,7 +4,7 @@
       <h1 class="title">Swipe finger for randomness.</h1>
       <h2 class="subtitle">Use your finger to start swiping randomly along the screen, this helps with the uniqueness when generating your wallet.</h2>
       <h2 class="subtitle"><b>You can start at anytime.</b> We will let you know once the proccess is finished.</h2>
-      <img src="img/hand.svg" class="instruction-hand">
+      <Icon name="hand" />
     </div>
   </div>
   <div class="generator" ref:generator>
@@ -24,6 +24,7 @@
   import Peercoin from '../../helpers/peercoin/Peercoin';
   import Base58 from '../../helpers/peercoin/Base58';
   import ECurve from '../../helpers/peercoin/ECurve';
+  import Icon from '../../components/icon/icon.component.svelte';
 
   export default {
     data() {
@@ -144,6 +145,9 @@
           nonChecksum: secondSHA.substr(8,secondSHA.length).toUpperCase()
         };
       }
+    },
+    components: {
+      Icon
     }
   }
 </script>

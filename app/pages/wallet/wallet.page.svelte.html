@@ -1,13 +1,13 @@
 <div class="WalletPage page page-entering" ref:page>
   <h1 class="title">
-    <div class="checkmark"><img src="/img/check.svg" alt="Success"></div> Wallet generated!
+    <div class="checkmark"><Icon name="check" /></div> Wallet generated!
   </h1>
   
   <img src="{{publicQRCode}}" alt="Public Address QR Code" class="qr-code">
 
   <div class="wallet-details">
     <div class="share-btn" on:click="openShareMenu()">
-      <img src="/img/share.svg" alt="Share">
+      <Icon name="share" />
     </div>
     <div class="section">
       <div class="section-title">Address</div>
@@ -44,6 +44,7 @@
   import roadtrip from 'roadtrip';
   import QRious from 'qrious';
   import { Store } from 'svelte/store.umd.js';
+  import Icon from '../../components/icon/icon.component.svelte';
 
   export default {
     data() {
@@ -127,6 +128,9 @@
 
         return URL.createObjectURL(new Blob([JSON.stringify(data)], {type: 'application/json'}))
       }
+    },
+    components: {
+      Icon
     }
   }
 </script>

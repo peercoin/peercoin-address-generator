@@ -8,9 +8,9 @@
   min-height: 100vh;
 
   .logo {
+    display: block;
     width: 66vmin;
-    margin-top: 3rem;
-    margin-bottom: 3rem;
+    margin: 3rem auto;
   }
 
   .btn-start {

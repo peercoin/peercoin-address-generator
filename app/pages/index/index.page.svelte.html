@@ -1,6 +1,6 @@
 <div class="IndexPage page page-entering">
   <div class="container">
-    <img src="/img/logo.svg" alt="Peercoin" class="logo">
+    <Icon name="logo" />
     <h1 class="title">Wallet Generator</h1>
     <h2 class="subtitle">To generate a new wallet, simply click in the button below and follow the instructions.</h2>
     <a href="#" on:click="goto('/generator')" class="btn-start">
@@ -15,6 +15,7 @@
 
 <script>
   import roadtrip from 'roadtrip';
+  import Icon from '../../components/icon/icon.component.svelte';
 
   export default {
     methods: {
@@ -27,6 +28,9 @@
       generateWallet() {
        // asd
       }
+    },
+    components: {
+      Icon
     }
   }
 </script>

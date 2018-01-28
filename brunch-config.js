@@ -7,7 +7,7 @@ module.exports = {
     babel: { presets: ['latest'] },
     closurecompiler: {
       compilationLevel: 'SIMPLE',
-      createSourceMap: true
+      createSourceMap: false
     },
     postcss: { processors: [require('autoprefixer')] }
   },

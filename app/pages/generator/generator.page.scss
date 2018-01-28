@@ -99,13 +99,15 @@
 
       @include viewports(above small) {
         position: relative;
-        background: #eee;
+        background: #f0f0f0;
       }
       
       .seed {
         opacity: 0.05;
         color: #000;
-        font-size: 3rem;
+        font-size: 2rem;
+        line-height: 3rem;
+        letter-spacing: 6px;
         word-break: break-all;
         padding: 1rem;
         pointer-events: none;

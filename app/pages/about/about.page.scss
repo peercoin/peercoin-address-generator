@@ -13,6 +13,8 @@
   .title {
     @include viewports(above small) {
       font-size: 2rem;
+      margin-top: 3rem;
+      margin-bottom: 0;
     }
   }
 
@@ -21,6 +23,11 @@
 
     @include viewports(above small) {
       margin-top: 2.1rem;
+    }
+
+    a {
+      color: $color_primary;
+      border-bottom: 2px solid rgba($color_primary, 0.2);
     }
   }
 

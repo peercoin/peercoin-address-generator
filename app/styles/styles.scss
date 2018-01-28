@@ -25,6 +25,25 @@ body {
   font-size: 1.5rem;
   background: #fff;
   text-align: center;
+
+  @include viewports(above small) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  &:before {
+    @include viewports(above small) {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: $color_primary;
+    }
+  }
 }
 
 a {
@@ -38,18 +57,34 @@ main {
   left: 0;
   width: 100%;
   min-height: 100%;
+
+  @include viewports(above small) {
+    position: relative;
+    max-width: 875px;
+    box-shadow: 0 5px 20px rgba(#000, 0.16);
+    min-height: auto;
+    border-radius: 5px;
+  }
 }
 
 .title {
   font-size: 7vmin;
   font-weight: 300;
   color: $color_black;
+
+  @include viewports(above small) {
+    font-size: 2.3rem;
+  }
 }
 
 .subtitle {
   font-size: 4.5vmin;
   font-weight: normal;
   color: rgba($color_black, 0.38);
+
+  @include viewports(above small) {
+    font-size: 1.6rem;
+  }
 
   b {
     color: rgba($color_black, 0.68);
@@ -64,7 +99,10 @@ main {
   position: absolute;
   width: 100%;
   min-height: 100%;
-  background: #fff;
+
+  @include viewports(above small) {
+    position: relative;
+  }
 }
 
 .page-entering {

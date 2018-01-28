@@ -87,7 +87,7 @@
         const textArea = document.createElement("textarea");
         const keys = `${this.get('publicAddress')} /// ${this.get('privateKey')}`;
         
-        textArea.classList.add('clipboard');
+        textArea.classList.add('clipboard', 'selectable');
         textArea.value = keys;
 
         document.body.appendChild(textArea);

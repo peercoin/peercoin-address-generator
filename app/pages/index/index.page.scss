@@ -11,6 +11,10 @@
     display: block;
     width: 66vmin;
     margin: 3rem auto;
+
+    @include viewports(above small) {
+      width: 145px;
+    }
   }
 
   .btn-start {
@@ -30,6 +34,14 @@
     box-shadow:
       0 3px 30px rgba(#000, 0.07),
       0 5px 5px rgba(#000, 0.07);
+
+    
+    @include viewports(above small) {
+      width: 135px;
+      height: 135px;
+      font-size: 1.8rem;
+      margin-bottom: 7rem;
+    }
     
     &:before {
       content: '';

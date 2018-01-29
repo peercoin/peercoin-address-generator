@@ -71,7 +71,7 @@ main {
   left: 0;
   width: 100%;
   min-height: 100%;
-  margin: 1rem;
+  margin: 0;
 
   @include viewports(above small) {
     position: relative;
@@ -79,6 +79,7 @@ main {
     box-shadow: 0 5px 20px rgba(#000, 0.16);
     min-height: auto;
     border-radius: 5px;
+    margin: 1rem;
   }
 }
 

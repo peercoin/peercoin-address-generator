@@ -13,7 +13,7 @@
       <div class="percentage">{{Math.floor(seedPercentage)}}%</div>
     </div>
     <div class="progress" style="transform: translate3d(0, {{100 - seedPercentage}}%, 0)">
-      <div class="seed">{{obfuscatedPartialSeed}}</div>
+      <div class="seed no-selectable">{{obfuscatedPartialSeed}}</div>
     </div>
   </div>
 </div>
@@ -95,7 +95,7 @@
         if (touches >= totalTouches) {
           // If this is the last computed touch, save its time for seed usage
           if (touches == totalTouches) {
-            this.set({ initialTouchTime: +new Date() });
+            this.set({ finalTouchTime: +new Date() });
           }
           // Finally, generate wallet using computed seed.
           this.generateWallet(

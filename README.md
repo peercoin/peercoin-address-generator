@@ -20,3 +20,31 @@ In order to update SSL certificate, run the command below:
 ```
 sudo systemctl stop nginx && sudo certbot certonly --standalone -d hodl.peercoin.net -d paperwallet.peercoin.net && sudo systemctl start nginx
 ```
+
+The configuration used at `/etc/nginx/sites-available/default` is:
+
+<details>
+  
+```
+# Peercoin Wallet configs
+
+upstream ppc-wallet-generator {
+  server 127.0.0.1:5001;
+}
+
+server {
+  listen 80;
+  server_name hodl.peercoin.net paperwallet.peercoin.net;
+  
+  location / {
+    proxy_pass http://ppc-wallet-generator;
+  }
+
+  listen 443 ssl;
+  ssl_certificate /etc/letsencrypt/live/hodl.peercoin.net/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/hodl.peercoin.net/privkey.pem;
+  include /etc/nginx/conf.d/ssl.conf;
+}
+```
+
+</details>

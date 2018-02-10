@@ -14,3 +14,9 @@ The URLs addressed are:
 
 https://hodl.peercoin.net/
 https://paperwallet.peercoin.net/
+
+In order to update SSL certificate, run the command below:
+
+```
+sudo systemctl stop nginx && sudo certbot certonly --standalone -d hodl.peercoin.net -d paperwallet.peercoin.net && sudo systemctl start nginx
+```

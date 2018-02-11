@@ -1,0 +1,46 @@
+@import '../../styles/_variables';
+@import '../../styles/_viewports';
+
+.NotSupportedPage {
+  text-align: center;
+
+  @include viewports(above small) {
+    max-height: 80vh;
+    overflow: scroll;
+  }
+
+  .title {
+    @include viewports(above small) {
+      font-size: 2rem;
+      margin-top: 3rem;
+      margin-bottom: 0;
+    }
+
+    &:first-child {
+      margin-top: 1rem;
+    }
+  }
+
+  p {
+    line-height: 2.6rem;
+
+    @include viewports(above small) {
+      margin-top: 2.1rem;
+    }
+  }
+
+  .browsers {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+
+    a {
+      display: block;
+      margin: 1rem;
+      padding: 0.5rem;
+      color: $color_primary;
+      border-bottom: 2px solid rgba($color_primary, 0.2);
+    }
+  }
+}

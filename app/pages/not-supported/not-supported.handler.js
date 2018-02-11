@@ -1,18 +1,20 @@
 import roadtrip from 'roadtrip';
-import Generator from './generator.page.svelte';
+import NotSupported from './not-supported.page.svelte';
 import { isCompatible } from '../../helpers/checkCompatibility';
 
-export default class GeneratorHandler {
+export default class NotSupportedHandler {
   get route() {
     return {
       enter(current, previous) {
-        // If the browser using this app is not compatible,
-        // send it to "Not Supported" page. 
-        if (!isCompatible()) {
-          roadtrip.goto('/not-supported');
+        // If a compatible browser enters this page by mistake,
+        // redirect it to home
+        if (isCompatible()) {
+          roadtrip.goto('/');
           return;
         }
-        this.component = new Generator({
+
+        // Otherwise, render the "Not Supported" view
+        this.component = new NotSupported({
           target: document.getElementById('app')
         });
       },

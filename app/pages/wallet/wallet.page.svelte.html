@@ -33,7 +33,7 @@
     <ul class="menu">
       <li><a href="{{actionDownloadTextFile()}}" download="peercoin_wallet.txt">Save .txt locally</a></li>
       <li><a href="#" on:click="actionCopyToClipboard(event)">Copy <b>address/priv. key</b> to clipboard</a></li>
-      <li><a href="mailto:your-address-here@email.com">Send via email</a></li>
+      <li><a href="mailto:your-address-here@email.com?body={{actionGetMailBody()}}">Send via email</a></li>
       <li><a href="{{actionDownloadJSONFile()}}" download="peercoin_wallet.json">Save JSON data</a></li>
       <li class="disabled"><a href="#">Choose paper wallet model (soon)</a></li>
     </ul>
@@ -117,7 +117,18 @@
         Private Key (DO NOT SHARE): ${window.store.get('privateKey')}
         `;
 
-        return URL.createObjectURL(new Blob([text], {type: 'text/plain'}))
+        return URL.createObjectURL(new Blob([text], {type: 'text/plain'}));
+      },
+      actionGetMailBody() {
+        const text = `
+        Date issued: ${new Date()}
+
+        Public Address: ${window.store.get('publicAddress')}
+        
+        Private Key (DO NOT SHARE): ${window.store.get('privateKey')}
+        `;
+
+        return text;
       },
       actionDownloadJSONFile() {
         const data = {
@@ -126,7 +137,7 @@
           privateKey: window.store.get('privateKey')
         };
 
-        return URL.createObjectURL(new Blob([JSON.stringify(data)], {type: 'application/json'}))
+        return URL.createObjectURL(new Blob([JSON.stringify(data)], {type: 'application/json'}));
       }
     },
     components: {

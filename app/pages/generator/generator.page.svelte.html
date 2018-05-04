@@ -58,7 +58,7 @@
         roadtrip.goto(path);
       },
       isTouchDevice() {
-        return 'ontouchstart' in window;
+        return 'ontouchstart' in window || window.innerWidth <= 1024;
       },
       handleSeed(e) {
         const isTouch = this.get('isTouchDevice');

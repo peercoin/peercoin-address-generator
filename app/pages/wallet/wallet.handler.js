@@ -16,19 +16,12 @@ export default class WalletHandler {
           this.component = new Wallet({
             target: document.getElementById('app')
           });
-
-          // Disable overflow to prevent scrolling
-          // while giving seed by touch
-          document.body.style.overflow = 'hidden';
         }
       },
       leave(current, previous) {
         if(this.component) {
           this.component.destroy();
         }
-        
-        // Enable overflow for other views
-        document.body.style.overflow = '';
       }
     }
   }

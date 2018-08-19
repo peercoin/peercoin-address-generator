@@ -21,6 +21,7 @@
         <div class="section-value grey">Make sure nobody is watching.</div>
       {{/if}}
       {{#if isPrivateKeyVisible}}
+        <img src="{{privateQRCode}}" alt="Private Key QR Code" class="qr-code-private">
         <div class="section-value selectable">{{privateKey}}</div>
       {{/if}}
     </div>
@@ -51,6 +52,7 @@
       return {
         publicAddress: window.store.get('publicAddress'),
         privateKey: window.store.get('privateKey'),
+        privateQRCode: new QRious({value: window.store.get('privateKey') || 'just a sample lorem ipsum dolor sit', size: 200 * 4, level: 'L'}).toDataURL(),
         publicQRCode: new QRious({value: window.store.get('publicAddress') || 'just a sample lorem ipsum dolor sit', size: 200 * 4, level: 'L'}).toDataURL(),
         isPrivateKeyVisible: false,
         isShareMenuOpen: false

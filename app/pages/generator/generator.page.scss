@@ -8,6 +8,7 @@
 
   @include viewports(above small) {
     flex-direction: column;
+    min-height: auto;
   }
 
   h1 {

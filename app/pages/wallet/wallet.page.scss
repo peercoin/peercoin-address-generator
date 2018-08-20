@@ -243,6 +243,10 @@
     box-shadow: 0 2px 4px rgba(#000, 0.2);
     border-radius: 3px;
     padding: 1rem;
+
+    @include viewports(above small) {
+      margin: 2rem 0;
+    }
   }
 }
 

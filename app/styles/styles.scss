@@ -180,3 +180,32 @@ main {
     transform: scale(0.9);
   }
 }
+
+@media print {
+  .page *:not(.print-only) {
+    display: none;
+  }
+
+  .page .print-only * {
+    display: block;
+  }
+}
+
+.print-only {
+  display: none;
+
+  @media print {
+    display: block;
+  }
+}
+
+.print-title {
+  text-align: center;
+  font-size: 16pt;
+  margin-bottom: 2cm;
+  display: none;
+
+  @media print {
+    display: block;
+  }
+}

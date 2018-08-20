@@ -4,6 +4,19 @@
   background: #efefef;
   margin: 2rem 0;
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media print {
+    display: block;
+  }
+
+  * {
+    @media print {
+      display: block;
+    }
+  }
 
   .wallet {
     &:not(:last-child) {

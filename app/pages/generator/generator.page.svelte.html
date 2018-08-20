@@ -20,6 +20,7 @@
 
 <script>
   import roadtrip from 'roadtrip';
+  import QRious from 'qrious';
   import BigInteger from '../../helpers/peercoin/BigInteger';
   import Peercoin from '../../helpers/peercoin/Peercoin';
   import Base58 from '../../helpers/peercoin/Base58';
@@ -37,7 +38,7 @@
       return {
         lastTouch: +new Date(),
         touches: 0,
-        totalTouches: 1 + (Math.round(crypto.getRandomValues(new Uint8Array(10))[5] / 4)), // 120
+        totalTouches: 120 + (Math.round(crypto.getRandomValues(new Uint8Array(10))[5] / 4)),
         hasStarted: false,
         hasFinished: false,
         isTouchDevice: true,
@@ -78,7 +79,6 @@
 
         // If mousemove, simulate touch to keep with the function
         if (e.type === 'mousemove') {
-          console.log(e);
           e.touches = [];
           e.touches[0] = {
             pageX: e.layerX,
@@ -177,7 +177,9 @@
         window.store.set({
           wallets: wallets.concat({
             publicAddress: address,
-            privateKey: addresspriv
+            privateKey: addresspriv,
+            privateQRCode: new QRious({value: addresspriv, size: 200 * 4, level: 'L'}).toDataURL(),
+            publicQRCode: new QRious({value: address, size: 200 * 4, level: 'L'}).toDataURL(),
           })
         });
       },

@@ -1,15 +1,36 @@
+<h1 class="print-only print-title">Those wallets are 15cmx8cm, folded they occupies the size of a business card (5cmx8cm).</h1>
+
+{{#each wallets as wallet, i}}
+  <PaperWallet publicAddress="{{wallet.publicAddress}}" privateKey="{{wallet.privateKey}}" publicQRCode="{{wallet.publicQRCode}}" privateQRCode="{{wallet.privateQRCode}}" />
+{{/each}}
+
 <div class="MultipleWalletsComp">
+  <button class="btn" on:click="actionPaperWallet()">PaperWallet (print)</button>
   {{#each wallets as wallet, i}}
-  <div class="wallet">
-    <h2>Wallet #{{i + 1}}</h2>
-    <div class="wallet-public-address">
-      <div class="wallet-title">Public Address:</div>
-      <div class="wallet-value">{{wallet.publicAddress}}</div>
+    <div class="wallet">
+      <h2>Wallet #{{i + 1}}</h2>
+      <div class="wallet-public-address">
+        <div class="wallet-title">Public Address:</div>
+        <div class="wallet-value">{{wallet.publicAddress}}</div>
+      </div>
+      <div class="wallet-private-key">
+        <div class="wallet-title">Private key:</div>
+        <div class="wallet-value">{{wallet.privateKey}}</div>
+      </div>
     </div>
-    <div class="wallet-private-key">
-      <div class="wallet-title">Private key:</div>
-      <div class="wallet-value">{{wallet.privateKey}}</div>
-    </div>
-  </div>
   {{/each}}
 </div>
+
+<script>
+  import PaperWallet from '../paperwallet/paperwallet.component.svelte';
+  export default {
+    methods: {
+      actionPaperWallet() {
+        window.print();
+      }
+    },
+    components: {
+      PaperWallet
+    }
+  }
+</script>

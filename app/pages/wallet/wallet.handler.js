@@ -7,8 +7,6 @@ export default class WalletHandler {
       enter(current, previous) {
         const wallets = window.store.get('wallets') || [];
 
-        console.log(wallets);
-
         // If no address generated, redirect to home
         if (wallets.length < 1) {
           roadtrip.goto('/');

@@ -12,6 +12,8 @@
     <MultipleWallets wallets="{{wallets}}" />
   {{/if}}
   {{#if wallets.length === 1}}
+    <h1 class="print-only print-title">This wallet is 15cmx8cm, folded it occupies the size of a business card (5cmx8cm).</h1>
+    <PaperWallet publicAddress="{{publicAddress}}" privateKey="{{privateKey}}" publicQRCode="{{publicQRCode}}" privateQRCode="{{privateQRCode}}" />
     <img src="{{publicQRCode}}" alt="Public Address QR Code" class="qr-code">
     <div class="wallet-details">
       <div class="share-btn" on:click="openShareMenu()">
@@ -45,26 +47,27 @@
       <li><a href="#" on:click="actionCopyToClipboard(event)">Copy <b>address/priv. key</b> to clipboard</a></li>
       <li><a href="mailto:your-address-here@email.com?body={{actionGetMailBody()}}">Send via email</a></li>
       <li><a href="{{actionDownloadJSONFile()}}" download="peercoin_wallet.json">Save JSON data</a></li>
-      <li class="disabled"><a href="#">Choose paper wallet model (soon)</a></li>
+      <li><a href="#" on:click="actionPaperWallet(event)">Paper Wallet (print)</a></li>
     </ul>
   </nav>
 </div>
 
 <script>
   import roadtrip from 'roadtrip';
-  import QRious from 'qrious';
   import { Store } from 'svelte/store.umd.js';
   import Icon from '../../components/icon/icon.component.svelte';
   import MultipleWallets from '../../components/multiple-wallets/multiple-wallets.component.svelte';
+  import PaperWallet from '../../components/paperwallet/paperwallet.component.svelte';
 
   export default {
     data() {
+      const wallets = window.store.get('wallets');
       return {
-        wallets: window.store.get('wallets'),
-        publicAddress: window.store.get('wallets')[0].publicAddress,
-        privateKey: window.store.get('wallets')[0].privateKey,
-        privateQRCode: new QRious({value: window.store.get('wallets')[0].privateKey || 'just a sample lorem ipsum dolor sit', size: 200 * 4, level: 'L'}).toDataURL(),
-        publicQRCode: new QRious({value: window.store.get('wallets')[0].publicAddress || 'just a sample lorem ipsum dolor sit', size: 200 * 4, level: 'L'}).toDataURL(),
+        wallets: wallets,
+        publicAddress: wallets[0].publicAddress,
+        privateKey: wallets[0].privateKey,
+        privateQRCode: wallets[0].privateQRCode,
+        publicQRCode: wallets[0].publicQRCode,
         isPrivateKeyVisible: false,
         isShareMenuOpen: false
       }
@@ -94,6 +97,10 @@
       closeShareMenu() {
         this.set({isShareMenuOpen: false});
       },
+      actionPaperWallet(e) {
+        e.preventDefault();
+        window.print();
+      },
       actionCopyToClipboard(e) {
         e.preventDefault();
 
@@ -108,9 +115,8 @@
 
         try {
           document.execCommand('copy');
-          console.log('Copied!');
         } catch (err) {
-          console.log('Oops, unable to copy');
+          console.error('Oops, unable to copy');
         }
 
         document.body.removeChild(textArea);
@@ -155,7 +161,8 @@
     },
     components: {
       Icon,
-      MultipleWallets
+      MultipleWallets,
+      PaperWallet
     }
   }
 </script>

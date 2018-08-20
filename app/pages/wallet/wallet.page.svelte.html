@@ -1,31 +1,40 @@
 <div class="WalletPage page page-entering" ref:page>
   <h1 class="title">
-    <div class="checkmark"><Icon name="check" /></div> Wallet generated!
+    {{#if wallets.length === 1}}
+      <div class="checkmark"><Icon name="check" /></div> Wallet generated!
+    {{/if}}
+    {{#if wallets.length > 1}}
+      <div class="checkmark"><Icon name="check" /></div> {{wallets.length}} Wallets generated!
+    {{/if}}
   </h1>
-  
-  <img src="{{publicQRCode}}" alt="Public Address QR Code" class="qr-code">
 
-  <div class="wallet-details">
-    <div class="share-btn" on:click="openShareMenu()">
-      <Icon name="share" />
-    </div>
-    <div class="section">
-      <div class="section-title">Address</div>
-      <div class="section-value selectable">{{publicAddress}}</div>
-    </div>
-    <div class="section">
-      <div class="section-title">Private Key
-        <button class="btn btn-section" on:click="togglePrivateKeyVisibility()">{{(isPrivateKeyVisible) ? 'Hide' : 'Show'}}</button>
+  {{#if wallets.length > 1}}
+    <MultipleWallets wallets="{{wallets}}" />
+  {{/if}}
+  {{#if wallets.length === 1}}
+    <img src="{{publicQRCode}}" alt="Public Address QR Code" class="qr-code">
+    <div class="wallet-details">
+      <div class="share-btn" on:click="openShareMenu()">
+        <Icon name="share" />
       </div>
-      {{#if !isPrivateKeyVisible}}
-        <div class="section-value grey">Make sure nobody is watching.</div>
-      {{/if}}
-      {{#if isPrivateKeyVisible}}
-        <img src="{{privateQRCode}}" alt="Private Key QR Code" class="qr-code-private">
-        <div class="section-value selectable">{{privateKey}}</div>
-      {{/if}}
+      <div class="section">
+        <div class="section-title">Address</div>
+        <div class="section-value selectable">{{publicAddress}}</div>
+      </div>
+      <div class="section">
+        <div class="section-title">Private Key
+          <button class="btn btn-section" on:click="togglePrivateKeyVisibility()">{{(isPrivateKeyVisible) ? 'Hide' : 'Show'}}</button>
+        </div>
+        {{#if !isPrivateKeyVisible}}
+          <div class="section-value grey">Make sure nobody is watching.</div>
+        {{/if}}
+        {{#if isPrivateKeyVisible}}
+          <img src="{{privateQRCode}}" alt="Private Key QR Code" class="qr-code-private">
+          <div class="section-value selectable">{{privateKey}}</div>
+        {{/if}}
+      </div>
     </div>
-  </div>
+  {{/if}}
 
   <button class="btn clear-data" on:click="reset()">Clear data and start again.</button>
 
@@ -46,14 +55,16 @@
   import QRious from 'qrious';
   import { Store } from 'svelte/store.umd.js';
   import Icon from '../../components/icon/icon.component.svelte';
+  import MultipleWallets from '../../components/multiple-wallets/multiple-wallets.component.svelte';
 
   export default {
     data() {
       return {
-        publicAddress: window.store.get('publicAddress'),
-        privateKey: window.store.get('privateKey'),
-        privateQRCode: new QRious({value: window.store.get('privateKey') || 'just a sample lorem ipsum dolor sit', size: 200 * 4, level: 'L'}).toDataURL(),
-        publicQRCode: new QRious({value: window.store.get('publicAddress') || 'just a sample lorem ipsum dolor sit', size: 200 * 4, level: 'L'}).toDataURL(),
+        wallets: window.store.get('wallets'),
+        publicAddress: window.store.get('wallets')[0].publicAddress,
+        privateKey: window.store.get('wallets')[0].privateKey,
+        privateQRCode: new QRious({value: window.store.get('wallets')[0].privateKey || 'just a sample lorem ipsum dolor sit', size: 200 * 4, level: 'L'}).toDataURL(),
+        publicQRCode: new QRious({value: window.store.get('wallets')[0].publicAddress || 'just a sample lorem ipsum dolor sit', size: 200 * 4, level: 'L'}).toDataURL(),
         isPrivateKeyVisible: false,
         isShareMenuOpen: false
       }
@@ -72,8 +83,8 @@
         delete window.store;
         window.store = null;
         window.store = new Store({
-          publicAddress: '',
-          privateKey: ''
+          wallets: [],
+          numberOfWallets: 1
         });
         this.goto('/');
       },
@@ -143,7 +154,8 @@
       }
     },
     components: {
-      Icon
+      Icon,
+      MultipleWallets
     }
   }
 </script>

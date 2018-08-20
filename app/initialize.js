@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', main);
 function main () {
   window.Routes = new Routes();
   window.store = new Store({
-    publicAddress: '',
-    privateKey: ''
+    wallets: [],
+    numberOfWallets: 1
   });
 }

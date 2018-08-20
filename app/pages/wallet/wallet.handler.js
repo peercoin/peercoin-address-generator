@@ -5,11 +5,12 @@ export default class WalletHandler {
   get route() {
     return {
       enter(current, previous) {
-        const pubAddr = window.store.get('publicAddress');
-        const privKey = window.store.get('privateKey');
+        const wallets = window.store.get('wallets') || [];
+
+        console.log(wallets);
 
         // If no address generated, redirect to home
-        if (!pubAddr || !privKey) {
+        if (wallets.length < 1) {
           roadtrip.goto('/');
         } else {
           // Else, load view

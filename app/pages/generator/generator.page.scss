@@ -4,6 +4,7 @@
 .GeneratorPage {
   display: flex;
   align-items: center;
+  min-height: 100vh;
 
   @include viewports(above small) {
     flex-direction: column;

@@ -1,0 +1,35 @@
+@import "../../styles/_variables";
+
+.MultipleWalletsComp {
+  background: #efefef;
+  margin: 2rem 0;
+  padding: 2rem;
+
+  .wallet {
+    &:not(:last-child) {
+      padding: 4rem 0;
+      border-bottom: 2px solid #ccc;
+    }
+
+    .wallet-private-key {
+      margin-top: 1rem;
+    }
+
+    .wallet-title {
+      font-size: 1.5rem;
+      color: $color_primary;
+      margin-bottom: 0.5rem;
+    }
+
+    .wallet-value {
+      font-size: 1.4rem;
+      font-family: monospace;
+      letter-spacing: 1px;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(#000, 0.1);
+      border-radius: 3px;
+      padding: 2rem 1rem;
+      word-break: break-word;
+    }
+  }
+}

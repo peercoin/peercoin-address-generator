@@ -37,7 +37,7 @@
       return {
         lastTouch: +new Date(),
         touches: 0,
-        totalTouches: 120 + (Math.round(crypto.getRandomValues(new Uint8Array(10))[5] / 4)),
+        totalTouches: 1 + (Math.round(crypto.getRandomValues(new Uint8Array(10))[5] / 4)), // 120
         hasStarted: false,
         hasFinished: false,
         isTouchDevice: true,
@@ -64,6 +64,7 @@
         const isTouch = this.get('isTouchDevice');
         const touches = +this.get('touches');
         const totalTouches = +this.get('totalTouches');
+        const numberOfWallets = window.store.get('numberOfWallets');
 
         // Ignore mouse events if device is mobile/touch
         if (isTouch && e.type === 'mousemove') {
@@ -99,11 +100,15 @@
             this.set({ finalTouchTime: +new Date() });
           }
           // Finally, generate wallet using computed seed.
-          this.generateWallet(
-            this.get('initialTouchTime'),
-            this.get('finalTouchTime'),
-            this.get('touchList')
-          );
+          for (let i = 0; i < numberOfWallets; i++) {
+            this.generateWallet(
+              this.get('initialTouchTime'),
+              this.get('finalTouchTime'),
+              this.get('touchList')
+            );
+          }
+
+          this.goto('/wallet');
           return;
         }
 
@@ -140,9 +145,16 @@
         this.refs.generator.appendChild(point);
       },
       generateWallet(initialTime, finalTime, touchList) {
+        const wallets = window.store.get('wallets') || [];
+        const numberOfWallets = window.store.get('numberOfWallets') || [];
+
+        if (wallets.length >= numberOfWallets) {
+          return;
+        }
+
         // Seed
-        const secret = `${initialTime}${touchList.join('')}${finalTime}`;
-        console.log(secret);
+        const randomSeed = Array.from(window.crypto.getRandomValues(new Uint8Array(2048 / 8))).join('');
+        const secret = `${randomSeed}:${initialTime}${touchList.join('')}${finalTime}`;
 
         // Generating peercoin address/priv. key
         const secretHash = Peercoin.Crypto.SHA256("" + secret);
@@ -163,10 +175,11 @@
 
         // Send generated Address to new page
         window.store.set({
-          publicAddress: address,
-          privateKey: addresspriv
+          wallets: wallets.concat({
+            publicAddress: address,
+            privateKey: addresspriv
+          })
         });
-        this.goto('/wallet');
       },
       computeChecksum(hx) {
         var firstSHA = Peercoin.Crypto.SHA256(Peercoin.Crypto.hexToBytes(hx));

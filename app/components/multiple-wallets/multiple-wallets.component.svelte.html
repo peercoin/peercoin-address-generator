@@ -1,0 +1,15 @@
+<div class="MultipleWalletsComp">
+  {{#each wallets as wallet, i}}
+  <div class="wallet">
+    <h2>Wallet #{{i + 1}}</h2>
+    <div class="wallet-public-address">
+      <div class="wallet-title">Public Address:</div>
+      <div class="wallet-value">{{wallet.publicAddress}}</div>
+    </div>
+    <div class="wallet-private-key">
+      <div class="wallet-title">Private key:</div>
+      <div class="wallet-value">{{wallet.privateKey}}</div>
+    </div>
+  </div>
+  {{/each}}
+</div>

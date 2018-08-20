@@ -6,6 +6,13 @@
     <a href="#" on:click="goto('/generator')" class="btn-start">
       Start
     </a>
+
+    <div class="options-panel">
+      <div class="option">
+        <label>Number of Wallets to generate (Bulk Generation):</label>
+        <input class="field" type="number" min="1" max="1000" value="1" on:input="handleBulk(event.target.value)">
+      </div>
+    </div>
   </div>
   <footer class="footer">
     <a href="#" on:click="goto('/about')" class="footer-link">about</a>
@@ -25,8 +32,10 @@
         }
         roadtrip.goto(path);
       },
-      generateWallet() {
-       // asd
+      handleBulk(number) {
+        window.store.set({
+          numberOfWallets: number
+        });
       }
     },
     components: {

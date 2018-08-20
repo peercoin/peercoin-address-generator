@@ -119,9 +119,8 @@ main {
 }
 
 .page {
-  position: absolute;
+  position: relative;
   width: 100%;
-  min-height: 100%;
 
   @include viewports(above small) {
     position: relative;

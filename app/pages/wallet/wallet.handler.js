@@ -13,7 +13,8 @@ export default class WalletHandler {
         } else {
           // Else, load view
           this.component = new Wallet({
-            target: document.getElementById('app')
+            target: document.getElementById('app'),
+            store: window.store
           });
         }
       },

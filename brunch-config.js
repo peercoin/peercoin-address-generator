@@ -9,7 +9,10 @@ module.exports = {
       compilationLevel: 'SIMPLE',
       createSourceMap: false
     },
-    postcss: { processors: [require('autoprefixer')] }
+    postcss: { processors: [require('autoprefixer')] },
+    sveltejs: {
+      store: true
+    }
   },
   modules: {
     autoRequire: {

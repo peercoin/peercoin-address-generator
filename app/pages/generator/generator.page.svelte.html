@@ -1,15 +1,15 @@
 <div class="GeneratorPage page page-entering" on:touchmove="handleSeed(event)" on:mousemove="handleSeed(event)">
   <div class="instructions {{(hasStarted) ? '' : 'active'}}">
     <div class="container">
-      <h1 class="title">Swipe finger for randomness.</h1>
-      <h2 class="subtitle">Use your finger to start swiping randomly along the screen, this helps with the uniqueness when generating your wallet.</h2>
-      <h2 class="subtitle"><b>You can start at anytime.</b> We will let you know once the proccess is finished.</h2>
+      <h1 class="title">{{$dictionary.generator.title}}</h1>
+      <h2 class="subtitle">{{$dictionary.generator.subtitle1}}</h2>
+      <h2 class="subtitle">{{{$dictionary.generator.subtitle2}}}</h2>
       <Icon name="hand" />
     </div>
   </div>
   <div class="generator" ref:generator>
     <div class="progress-label {{(seedPercentage > 44) ? 'white' : ''}}">
-      <h1 class="title">Keep Swiping</h1>
+      <h1 class="title">{{$dictionary.generator.keepSwiping}}</h1>
       <div class="percentage">{{Math.floor(seedPercentage)}}%</div>
     </div>
     <div class="progress" style="transform: translate3d(0, {{100 - seedPercentage}}%, 0)">

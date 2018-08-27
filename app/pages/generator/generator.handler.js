@@ -13,7 +13,8 @@ export default class GeneratorHandler {
           return;
         }
         this.component = new Generator({
-          target: document.getElementById('app')
+          target: document.getElementById('app'),
+          store: window.store
         });
 
         // Disable overflow to prevent scrolling

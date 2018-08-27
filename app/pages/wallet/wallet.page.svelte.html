@@ -1,10 +1,10 @@
 <div class="WalletPage page page-entering" ref:page>
   <h1 class="title">
     {{#if wallets.length === 1}}
-      <div class="checkmark"><Icon name="check" /></div> Wallet generated!
+      <div class="checkmark"><Icon name="check" /></div> {{$dictionary.wallet.title}}
     {{/if}}
     {{#if wallets.length > 1}}
-      <div class="checkmark"><Icon name="check" /></div> {{wallets.length}} Wallets generated!
+      <div class="checkmark"><Icon name="check" /></div> {{wallets.length}} {{$dictionary.wallet.titlePlural}}
     {{/if}}
   </h1>
 
@@ -12,7 +12,7 @@
     <MultipleWallets wallets="{{wallets}}" />
   {{/if}}
   {{#if wallets.length === 1}}
-    <h1 class="print-only print-title">This wallet is 15cmx8cm, folded it occupies the size of a business card (5cmx8cm).</h1>
+    <h1 class="print-only print-title">{{$dictionary.wallet.titlePrint}}</h1>
     <PaperWallet publicAddress="{{publicAddress}}" privateKey="{{privateKey}}" publicQRCode="{{publicQRCode}}" privateQRCode="{{privateQRCode}}" />
     <img src="{{publicQRCode}}" alt="Public Address QR Code" class="qr-code">
     <div class="wallet-details">
@@ -20,34 +20,34 @@
         <Icon name="share" />
       </div>
       <div class="section">
-        <div class="section-title">Address</div>
+        <div class="section-title">{{$dictionary.wallet.address}}</div>
         <div class="section-value selectable">{{publicAddress}}</div>
       </div>
       <div class="section">
-        <div class="section-title">Private Key
+        <div class="section-title">{{$dictionary.wallet.privateKey}}
           <button class="btn btn-section" on:click="togglePrivateKeyVisibility()">{{(isPrivateKeyVisible) ? 'Hide' : 'Show'}}</button>
         </div>
         {{#if !isPrivateKeyVisible}}
-          <div class="section-value grey">Make sure nobody is watching.</div>
+          <div class="section-value grey">{{$dictionary.wallet.makeSure}}</div>
         {{/if}}
         {{#if isPrivateKeyVisible}}
-          <img src="{{privateQRCode}}" alt="Private Key QR Code" class="qr-code-private">
+          <img src="{{privateQRCode}}" alt="{{$dictionary.wallet.privateQRCode}}" class="qr-code-private">
           <div class="section-value selectable">{{privateKey}}</div>
         {{/if}}
       </div>
     </div>
   {{/if}}
 
-  <button class="btn clear-data" on:click="reset()">Clear data and start again.</button>
+  <button class="btn clear-data" on:click="reset()">{{$dictionary.wallet.clearBtn}}</button>
 
   <nav class="share-menu {{(isShareMenuOpen) ? 'active' : ''}}">
     <div class="overlay" on:click="closeShareMenu()"></div>
     <ul class="menu">
-      <li><a href="{{actionDownloadTextFile()}}" download="peercoin_wallet.txt">Save .txt locally</a></li>
-      <li><a href="#" on:click="actionCopyToClipboard(event)">Copy <b>address/priv. key</b> to clipboard</a></li>
-      <li><a href="mailto:your-address-here@email.com?body={{actionGetMailBody()}}">Send via email</a></li>
-      <li><a href="{{actionDownloadJSONFile()}}" download="peercoin_wallet.json">Save JSON data</a></li>
-      <li><a href="#" on:click="actionPaperWallet(event)">Paper Wallet (print)</a></li>
+      <li><a href="{{actionDownloadTextFile()}}" download="peercoin_wallet.txt">{{$dictionary.wallet.menu.saveText}}</a></li>
+      <li><a href="#" on:click="actionCopyToClipboard(event)">{{{$dictionary.wallet.menu.copyAddress}}}</a></li>
+      <li><a href="mailto:your-address-here@email.com?body={{actionGetMailBody()}}">{{$dictionary.wallet.menu.sendEmail}}</a></li>
+      <li><a href="{{actionDownloadJSONFile()}}" download="peercoin_wallet.json">{{$dictionary.wallet.menu.saveJSON}}</a></li>
+      <li><a href="#" on:click="actionPaperWallet(event)">{{$dictionary.wallet.menu.paperWallet}}</a></li>
     </ul>
   </nav>
 </div>

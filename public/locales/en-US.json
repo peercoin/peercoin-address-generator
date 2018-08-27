@@ -2,6 +2,55 @@
   "language": "en-US",
   "index": {
     "title": "Wallet Generator",
-    "subtitle": "To generate a new wallet, simply click in the button below and follow the instructions."
+    "subtitle": "To generate a new wallet, simply click in the button below and follow the instructions.",
+    "start": "Start",
+    "aboutLink": "about",
+    "options": {
+      "numberOfWallets": "Number of Wallets to generate (Bulk Generation):"
+    }
+  },
+  "about": {
+    "titleAbout": "About",
+    "backBtn": "Back",
+    "about1": "This Wallet Generator was build from scratch for Peercoin.",
+    "about2": "The main focus is to deliver a good and fast experience for mobile users, which seem forsaken by classic wallet generators. We're using cutting edge browser technologies in order to deliver this better experience, so please understand that older browsers may not work as expected (or at all) with this application.",
+    "titlePeercoin": "Peercoin",
+    "peercoin1": "Peercoin is the first cryptocurrency to implement the hybrid Proof of Work (POW) and Proof of Stake (POS) algorithm. Created in 2012, it's been running for more than <b>{{timeAlive()}} years</b> with considerably less energy than pure PoW cryptocurrencies such as Bitcoin. Along those {{timeAlive()}} years Peercoin also never had any type involvement with pre-mining, fraudulent ICOs or any critical security breaches.",
+    "titleDisclaimer": "About",
+    "disclaimer1": "Peercoin team, this wallet developers, or anyone involved with Peercoin do not hold any responsibility for money lost upon wallet generation from this tool, or any other means involving Peercoin or other cryptocurrencies. The owner of the wallet generated is responsible for its money and thus should follow all security steps in order to keep them safe. We do our best to keep this tool as up-to-date and secure as possible. This tool is 100% open-source. If you find any bugs or issues, please report to our repository.",
+    "disclaimer2": "The main focus is to deliver a good and fast experience for mobile users, which seem forsaken by classic wallet generators. We're using cutting edge browser technologies in order to deliver this better experience, so please understand that older browsers may not work as expected (or at all) with this application.",
+    "titleCredits": "About",
+    "credits1": "This is an open-source tool, and as such, cointains 3rd-party libraries with respective licenses. Those can be found at this application repository.",
+    "credits2": "If you find any lack of credits, please open an issue at our repository.",
+    "credits3": "Developed by <a href=\"https://twitter.com/kazzkiq/\" target=\"_blank\">@Kazzkiq</a>, made possible by Peercoin Community."
+  },
+  "generator": {
+    "title": "Swipe finger for randomness.",
+    "subtitle1": "Use your finger to start swiping randomly along the screen, this helps with the uniqueness when generating your wallet.",
+    "subtitle2": "<b>You can start at anytime.</b> We will let you know once the proccess is finished.",
+    "keepSwiping": "Keep Swiping"
+  },
+  "wallet": {
+    "title": "Wallet generated!",
+    "titlePlural": "Wallets generated!",
+    "titlePrint": "This wallet is 15cmx8cm, folded it occupies the size of a business card (5cmx8cm).",
+    "address": "Address",
+    "privateKey": "Private Key",
+    "makeSure": "Make sure nobody is watching",
+    "privateQRCode": "Private Key QR Code",
+    "clearBtn": "Clear data and start again.",
+    "menu": {
+      "saveText": "Save .txt locally",
+      "copyAddress": "Copy <b>address/priv. key</b> to clipboard",
+      "sendEmail": "Send via email",
+      "saveJSON": "Save JSON data",
+      "paperWallet": "Paper Wallet (print)"
+    },
+    "multipleWallets": {
+      "titlePrint": "Those wallets are 15cmx8cm, folded they occupies the size of a business card (5cmx8cm).",
+      "printBtn": "PaperWallet (print)",
+      "publicAddress": "Public Address:",
+      "privateKey": "Private Key:"
+    }
   }
 }

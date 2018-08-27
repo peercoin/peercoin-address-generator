@@ -5,7 +5,8 @@ export default class AboutHandler {
     return {
       enter(current, previous) {
         this.component = new About({
-          target: document.getElementById('app')
+          target: document.getElementById('app'),
+          store: window.store
         });
         document.body.style.overflow = 'hidden';
       },

@@ -6,7 +6,8 @@ export default class IndexHandler {
       enter(current, previous) {
         window.scrollTo(0, 1);
         this.component = new Index({
-          target: document.getElementById('app')
+          target: document.getElementById('app'),
+          store: window.store
         });
       },
       leave(current, previous) {

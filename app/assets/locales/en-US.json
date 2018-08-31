@@ -6,7 +6,8 @@
     "start": "Start",
     "aboutLink": "about",
     "options": {
-      "numberOfWallets": "Number of Wallets to generate (Bulk Generation):"
+      "numberOfWallets": "Number of Wallets to generate (Bulk Generation):",
+      "language": "Choose a different language:"
     }
   },
   "about": {

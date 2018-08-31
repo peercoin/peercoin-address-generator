@@ -8,7 +8,8 @@ import { Store } from 'svelte/store.umd.js';
 document.addEventListener('DOMContentLoaded', main);
 
 function main () {
-  const allowedLanguages = ['en-US'];
+  window['allowedLanguages'] = ['en-US', 'pt-BR'];
+  const allowedLanguages = window['allowedLanguages'];
   let language = localStorage.getItem('ppc-user-language') || navigator.language || 'en-US';
 
   if (!allowedLanguages.includes(language)) {
@@ -18,6 +19,7 @@ function main () {
   fetch(`/locales/${language}.json`)
   .then(res => res.json())
   .then((dictionary) => {
+    document.title = dictionary.index.title;
     localStorage.setItem('ppc-user-language', language);
     window.Routes = new Routes();
     window.store = new Store({

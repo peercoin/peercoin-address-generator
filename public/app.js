@@ -11135,7 +11135,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 document.addEventListener('DOMContentLoaded', main);
 
 function main() {
-  var allowedLanguages = ['en-US'];
+  window['allowedLanguages'] = ['en-US', 'pt-BR'];
+  var allowedLanguages = window['allowedLanguages'];
   var language = localStorage.getItem('ppc-user-language') || navigator.language || 'en-US';
 
   if (!allowedLanguages.includes(language)) {
@@ -11145,6 +11146,7 @@ function main() {
   fetch('/locales/' + language + '.json').then(function (res) {
     return res.json();
   }).then(function (dictionary) {
+    document.title = dictionary.index.title;
     localStorage.setItem('ppc-user-language', language);
     window.Routes = new _routes2.default();
     window.store = new _storeUmd.Store({
@@ -12269,6 +12271,13 @@ var Icon = require("../../components/icon/icon.component.svelte");
 roadtrip = (roadtrip && roadtrip.__esModule) ? roadtrip["default"] : roadtrip;
 Icon = (Icon && Icon.__esModule) ? Icon["default"] : Icon;
 
+function data() {
+  return {
+    allowedLanguages: window['allowedLanguages'],
+    currentLang: localStorage.getItem('ppc-user-language')
+  }
+};
+
 var methods = {
   goto(path, e) {
     if (e) {
@@ -12280,11 +12289,16 @@ var methods = {
     window.store.set({
       numberOfWallets: number
     });
+  },
+  handleLanguage(e) {
+    const lang = e.target.value;
+    localStorage.setItem('ppc-user-language', lang);
+    window.location.reload();
   }
 };
 
 function create_main_fragment(component, state) {
-	var div, div_1, text, h1, text_1_value = state.$dictionary.index.title, text_1, text_2, h2, text_3_value = state.$dictionary.index.subtitle, text_3, text_4, a, text_5_value = state.$dictionary.index.start, text_5, text_7, div_2, div_3, label, text_8_value = state.$dictionary.index.options.numberOfWallets, text_8, text_9, input, text_13, footer, a_1, text_14_value = state.$dictionary.index.aboutLink, text_14, text_15, a_2;
+	var div, div_1, text, h1, text_1_value = state.$dictionary.index.title, text_1, text_2, h2, text_3_value = state.$dictionary.index.subtitle, text_3, text_4, a, text_5_value = state.$dictionary.index.start, text_5, text_7, div_2, div_3, label, text_8_value = state.$dictionary.index.options.numberOfWallets, text_8, text_9, input, text_11, div_4, label_1, text_12_value = state.$dictionary.index.options.language, text_12, text_13, select, text_17, footer, a_1, text_18_value = state.$dictionary.index.aboutLink, text_18, text_19, a_2;
 
 	var icon_initial_data = { name: "logo" };
 	var icon = new Icon({
@@ -12298,6 +12312,22 @@ function create_main_fragment(component, state) {
 
 	function input_handler(event) {
 		component.handleBulk(event.target.value);
+	}
+
+	var each_value = state.allowedLanguages;
+
+	var each_blocks = [];
+
+	for (var i = 0; i < each_value.length; i += 1) {
+		each_blocks[i] = create_each_block(component, assign(assign({}, state), {
+			each_value: each_value,
+			lang: each_value[i],
+			lang_index: i
+		}));
+	}
+
+	function change_handler(event) {
+		component.handleLanguage(event);
 	}
 
 	function click_handler_1(event) {
@@ -12325,11 +12355,22 @@ function create_main_fragment(component, state) {
 			text_8 = createText(text_8_value);
 			text_9 = createText("\n        ");
 			input = createElement("input");
-			text_13 = createText("\n  ");
+			text_11 = createText("\n      ");
+			div_4 = createElement("div");
+			label_1 = createElement("label");
+			text_12 = createText(text_12_value);
+			text_13 = createText("\n        ");
+			select = createElement("select");
+
+			for (var i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
+
+			text_17 = createText("\n  ");
 			footer = createElement("footer");
 			a_1 = createElement("a");
-			text_14 = createText(text_14_value);
-			text_15 = createText("\n    ");
+			text_18 = createText(text_18_value);
+			text_19 = createText("\n    ");
 			a_2 = createElement("a");
 			a_2.textContent = "peercoin.net";
 			this.h();
@@ -12348,6 +12389,8 @@ function create_main_fragment(component, state) {
 			input.max = "1000";
 			input.value = "1";
 			div_3.className = "option";
+			addListener(select, "change", change_handler);
+			div_4.className = "option";
 			div_2.className = "options-panel";
 			div_1.className = "container";
 			addListener(a_1, "click", click_handler_1);
@@ -12380,11 +12423,22 @@ function create_main_fragment(component, state) {
 			appendNode(text_8, label);
 			appendNode(text_9, div_3);
 			appendNode(input, div_3);
-			appendNode(text_13, div);
+			appendNode(text_11, div_2);
+			appendNode(div_4, div_2);
+			appendNode(label_1, div_4);
+			appendNode(text_12, label_1);
+			appendNode(text_13, div_4);
+			appendNode(select, div_4);
+
+			for (var i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(select, null);
+			}
+
+			appendNode(text_17, div);
 			appendNode(footer, div);
 			appendNode(a_1, footer);
-			appendNode(text_14, a_1);
-			appendNode(text_15, footer);
+			appendNode(text_18, a_1);
+			appendNode(text_19, footer);
 			appendNode(a_2, footer);
 		},
 
@@ -12405,27 +12459,227 @@ function create_main_fragment(component, state) {
 				text_8.data = text_8_value;
 			}
 
-			if ((changed.$dictionary) && text_14_value !== (text_14_value = state.$dictionary.index.aboutLink)) {
-				text_14.data = text_14_value;
+			if ((changed.$dictionary) && text_12_value !== (text_12_value = state.$dictionary.index.options.language)) {
+				text_12.data = text_12_value;
+			}
+
+			var each_value = state.allowedLanguages;
+
+			if (changed.allowedLanguages || changed.currentLang) {
+				for (var i = 0; i < each_value.length; i += 1) {
+					var each_context = assign(assign({}, state), {
+						each_value: each_value,
+						lang: each_value[i],
+						lang_index: i
+					});
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(changed, each_context);
+					} else {
+						each_blocks[i] = create_each_block(component, each_context);
+						each_blocks[i].c();
+						each_blocks[i].m(select, null);
+					}
+				}
+
+				for (; i < each_blocks.length; i += 1) {
+					each_blocks[i].u();
+					each_blocks[i].d();
+				}
+				each_blocks.length = each_value.length;
+			}
+
+			if ((changed.$dictionary) && text_18_value !== (text_18_value = state.$dictionary.index.aboutLink)) {
+				text_18.data = text_18_value;
 			}
 		},
 
 		u: function unmount() {
 			detachNode(div);
+
+			for (var i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].u();
+			}
 		},
 
 		d: function destroy() {
 			icon.destroy(false);
 			removeListener(a, "click", click_handler);
 			removeListener(input, "input", input_handler);
+
+			destroyEach(each_blocks);
+
+			removeListener(select, "change", change_handler);
 			removeListener(a_1, "click", click_handler_1);
 		}
 	};
 }
 
+// (18:10) {{#each allowedLanguages as lang}}
+function create_each_block(component, state) {
+	var lang = state.lang, each_value = state.each_value, lang_index = state.lang_index;
+	var if_block_anchor, if_block_1_anchor;
+
+	var if_block = (lang === state.currentLang) && create_if_block(component, state);
+
+	var if_block_1 = (lang !== state.currentLang) && create_if_block_1(component, state);
+
+	return {
+		c: function create() {
+			if (if_block) if_block.c();
+			if_block_anchor = createComment();
+			if (if_block_1) if_block_1.c();
+			if_block_1_anchor = createComment();
+		},
+
+		m: function mount(target, anchor) {
+			if (if_block) if_block.m(target, anchor);
+			insertNode(if_block_anchor, target, anchor);
+			if (if_block_1) if_block_1.m(target, anchor);
+			insertNode(if_block_1_anchor, target, anchor);
+		},
+
+		p: function update(changed, state) {
+			lang = state.lang;
+			each_value = state.each_value;
+			lang_index = state.lang_index;
+			if (lang === state.currentLang) {
+				if (if_block) {
+					if_block.p(changed, state);
+				} else {
+					if_block = create_if_block(component, state);
+					if_block.c();
+					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+				}
+			} else if (if_block) {
+				if_block.u();
+				if_block.d();
+				if_block = null;
+			}
+
+			if (lang !== state.currentLang) {
+				if (if_block_1) {
+					if_block_1.p(changed, state);
+				} else {
+					if_block_1 = create_if_block_1(component, state);
+					if_block_1.c();
+					if_block_1.m(if_block_1_anchor.parentNode, if_block_1_anchor);
+				}
+			} else if (if_block_1) {
+				if_block_1.u();
+				if_block_1.d();
+				if_block_1 = null;
+			}
+		},
+
+		u: function unmount() {
+			if (if_block) if_block.u();
+			detachNode(if_block_anchor);
+			if (if_block_1) if_block_1.u();
+			detachNode(if_block_1_anchor);
+		},
+
+		d: function destroy() {
+			if (if_block) if_block.d();
+			if (if_block_1) if_block_1.d();
+		}
+	};
+}
+
+// (19:12) {{#if lang === currentLang}}
+function create_if_block(component, state) {
+	var lang = state.lang, each_value = state.each_value, lang_index = state.lang_index;
+	var option, text_value = lang, text, option_value_value;
+
+	return {
+		c: function create() {
+			option = createElement("option");
+			text = createText(text_value);
+			this.h();
+		},
+
+		h: function hydrate() {
+			option.__value = option_value_value = lang;
+			option.value = option.__value;
+			option.selected = true;
+		},
+
+		m: function mount(target, anchor) {
+			insertNode(option, target, anchor);
+			appendNode(text, option);
+		},
+
+		p: function update(changed, state) {
+			lang = state.lang;
+			each_value = state.each_value;
+			lang_index = state.lang_index;
+			if ((changed.allowedLanguages) && text_value !== (text_value = lang)) {
+				text.data = text_value;
+			}
+
+			if ((changed.allowedLanguages) && option_value_value !== (option_value_value = lang)) {
+				option.__value = option_value_value;
+			}
+
+			option.value = option.__value;
+		},
+
+		u: function unmount() {
+			detachNode(option);
+		},
+
+		d: noop
+	};
+}
+
+// (22:12) {{#if lang !== currentLang}}
+function create_if_block_1(component, state) {
+	var lang = state.lang, each_value = state.each_value, lang_index = state.lang_index;
+	var option, text_value = lang, text, option_value_value;
+
+	return {
+		c: function create() {
+			option = createElement("option");
+			text = createText(text_value);
+			this.h();
+		},
+
+		h: function hydrate() {
+			option.__value = option_value_value = lang;
+			option.value = option.__value;
+		},
+
+		m: function mount(target, anchor) {
+			insertNode(option, target, anchor);
+			appendNode(text, option);
+		},
+
+		p: function update(changed, state) {
+			lang = state.lang;
+			each_value = state.each_value;
+			lang_index = state.lang_index;
+			if ((changed.allowedLanguages) && text_value !== (text_value = lang)) {
+				text.data = text_value;
+			}
+
+			if ((changed.allowedLanguages) && option_value_value !== (option_value_value = lang)) {
+				option.__value = option_value_value;
+			}
+
+			option.value = option.__value;
+		},
+
+		u: function unmount() {
+			detachNode(option);
+		},
+
+		d: noop
+	};
+}
+
 function Multiple_wallets_component_svelte(options) {
 	init(this, options);
-	this._state = assign(this.store._init(["dictionary"]), options.data);
+	this._state = assign(assign(this.store._init(["dictionary"]), data()), options.data);
 	this.store._add(this, ["dictionary"]);
 
 	this._handlers.destroy = [removeFromStore];
@@ -12467,6 +12721,11 @@ assign(Multiple_wallets_component_svelte.prototype, methods);
 
 Multiple_wallets_component_svelte.prototype._recompute = noop;
 
+function assign(tar, src) {
+	for (var k in src) tar[k] = src[k];
+	return tar;
+}
+
 function createElement(name) {
 	return document.createElement(name);
 }
@@ -12499,6 +12758,18 @@ function removeListener(node, event, handler) {
 	node.removeEventListener(event, handler, false);
 }
 
+function destroyEach(iterations) {
+	for (var i = 0; i < iterations.length; i += 1) {
+		if (iterations[i]) iterations[i].d();
+	}
+}
+
+function createComment() {
+	return document.createComment('');
+}
+
+function noop() {}
+
 function init(component, options) {
 	component._handlers = blankObject();
 	component._bind = options._bind;
@@ -12506,11 +12777,6 @@ function init(component, options) {
 	component.options = options;
 	component.root = options.root || component;
 	component.store = component.root.store || options.store;
-}
-
-function assign(tar, src) {
-	for (var k in src) tar[k] = src[k];
-	return tar;
 }
 
 function removeFromStore() {
@@ -12619,8 +12885,6 @@ function _unmount() {
 function _differs(a, b) {
 	return a != a ? b == b : a !== b || ((a && typeof a === 'object') || typeof a === 'function');
 }
-
-function noop() {}
 
 function blankObject() {
 	return Object.create(null);

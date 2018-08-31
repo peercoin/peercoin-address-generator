@@ -8,6 +8,8 @@ import { Store } from 'svelte/store.umd.js';
 document.addEventListener('DOMContentLoaded', main);
 
 function main () {
+  registerSW();
+
   window['allowedLanguages'] = ['en-US', 'pt-BR'];
   const allowedLanguages = window['allowedLanguages'];
   let language = localStorage.getItem('ppc-user-language') || navigator.language || 'en-US';
@@ -28,4 +30,20 @@ function main () {
       dictionary 
     });
   });
+}
+
+function registerSW () {
+  if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js').then(function(registration) {
+      // Registration was successful
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }).catch(function(err) {
+      // registration failed :(
+      console.log('ServiceWorker registration failed: ', err);
+      });
+  });
+  } else {
+      console.log('No Service Worker available in this browser.');
+  }
 }

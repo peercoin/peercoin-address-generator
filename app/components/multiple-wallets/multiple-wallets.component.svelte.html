@@ -1,20 +1,20 @@
-<h1 class="print-only print-title">{{$dictionary.multipleWallets.titlePrint}}</h1>
+<h1 class="print-only print-title">{{$dictionary.wallet.multipleWallets.titlePrint}}</h1>
 
 {{#each wallets as wallet, i}}
   <PaperWallet publicAddress="{{wallet.publicAddress}}" privateKey="{{wallet.privateKey}}" publicQRCode="{{wallet.publicQRCode}}" privateQRCode="{{wallet.privateQRCode}}" />
 {{/each}}
 
 <div class="MultipleWalletsComp">
-  <button class="btn" on:click="actionPaperWallet()">{{$dictionary.multipleWallets.printBtn}}</button>
+  <button class="btn" on:click="actionPaperWallet()">{{$dictionary.wallet.multipleWallets.printBtn}}</button>
   {{#each wallets as wallet, i}}
     <div class="wallet">
       <h2>Wallet #{{i + 1}}</h2>
       <div class="wallet-public-address">
-        <div class="wallet-title">{{$dictionary.multipleWallets.publicAddress}}</div>
+        <div class="wallet-title">{{$dictionary.wallet.multipleWallets.publicAddress}}</div>
         <div class="wallet-value">{{wallet.publicAddress}}</div>
       </div>
       <div class="wallet-private-key">
-        <div class="wallet-title">{{$dictionary.multipleWallets.privateKey}}</div>
+        <div class="wallet-title">{{$dictionary.wallet.multipleWallets.privateKey}}</div>
         <div class="wallet-value">{{wallet.privateKey}}</div>
       </div>
     </div>

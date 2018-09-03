@@ -3633,7 +3633,7 @@ var methods = {
 };
 
 function create_main_fragment(component, state) {
-	var h1, text_value = state.$dictionary.multipleWallets.titlePrint, text, text_1, text_2, div, button, text_3_value = state.$dictionary.multipleWallets.printBtn, text_3, text_4;
+	var h1, text_value = state.$dictionary.wallet.multipleWallets.titlePrint, text, text_1, text_2, div, button, text_3_value = state.$dictionary.wallet.multipleWallets.printBtn, text_3, text_4;
 
 	var each_value = state.wallets;
 
@@ -3713,7 +3713,7 @@ function create_main_fragment(component, state) {
 		},
 
 		p: function update(changed, state) {
-			if ((changed.$dictionary) && text_value !== (text_value = state.$dictionary.multipleWallets.titlePrint)) {
+			if ((changed.$dictionary) && text_value !== (text_value = state.$dictionary.wallet.multipleWallets.titlePrint)) {
 				text.data = text_value;
 			}
 
@@ -3743,7 +3743,7 @@ function create_main_fragment(component, state) {
 				each_blocks.length = each_value.length;
 			}
 
-			if ((changed.$dictionary) && text_3_value !== (text_3_value = state.$dictionary.multipleWallets.printBtn)) {
+			if ((changed.$dictionary) && text_3_value !== (text_3_value = state.$dictionary.wallet.multipleWallets.printBtn)) {
 				text_3.data = text_3_value;
 			}
 
@@ -3849,7 +3849,7 @@ function create_each_block(component, state) {
 // (9:2) {{#each wallets as wallet, i}}
 function create_each_block_1(component, state) {
 	var wallet = state.wallet, each_value_1 = state.each_value_1, i = state.i;
-	var div, h2, text, text_1_value = i + 1, text_1, text_2, div_1, div_2, text_3_value = state.$dictionary.multipleWallets.publicAddress, text_3, text_4, div_3, text_5_value = wallet.publicAddress, text_5, text_7, div_4, div_5, text_8_value = state.$dictionary.multipleWallets.privateKey, text_8, text_9, div_6, text_10_value = wallet.privateKey, text_10;
+	var div, h2, text, text_1_value = i + 1, text_1, text_2, div_1, div_2, text_3_value = state.$dictionary.wallet.multipleWallets.publicAddress, text_3, text_4, div_3, text_5_value = wallet.publicAddress, text_5, text_7, div_4, div_5, text_8_value = state.$dictionary.wallet.multipleWallets.privateKey, text_8, text_9, div_6, text_10_value = wallet.privateKey, text_10;
 
 	return {
 		c: function create() {
@@ -3909,7 +3909,7 @@ function create_each_block_1(component, state) {
 			wallet = state.wallet;
 			each_value_1 = state.each_value_1;
 			i = state.i;
-			if ((changed.$dictionary) && text_3_value !== (text_3_value = state.$dictionary.multipleWallets.publicAddress)) {
+			if ((changed.$dictionary) && text_3_value !== (text_3_value = state.$dictionary.wallet.multipleWallets.publicAddress)) {
 				text_3.data = text_3_value;
 			}
 
@@ -3917,7 +3917,7 @@ function create_each_block_1(component, state) {
 				text_5.data = text_5_value;
 			}
 
-			if ((changed.$dictionary) && text_8_value !== (text_8_value = state.$dictionary.multipleWallets.privateKey)) {
+			if ((changed.$dictionary) && text_8_value !== (text_8_value = state.$dictionary.wallet.multipleWallets.privateKey)) {
 				text_8.data = text_8_value;
 			}
 
@@ -13302,11 +13302,13 @@ var methods = {
     this.set({isPrivateKeyVisible: !this.get('isPrivateKeyVisible')})
   },
   reset() {
+    const dictionary = window.store.get('dictionary');
     delete window.store;
     window.store = null;
     window.store = new Store({
       wallets: [],
-      numberOfWallets: 1
+      numberOfWallets: 1,
+      dictionary
     });
     this.goto('/');
   },
@@ -14271,98 +14273,5 @@ require.alias("roadtrip/dist/roadtrip.umd.js", "roadtrip");require.register("___
   
 });})();require('___globals___');
 
-'use strict';
-
-/* jshint ignore:start */
-(function () {
-  var WebSocket = window.WebSocket || window.MozWebSocket;
-  var br = window.brunch = window.brunch || {};
-  var ar = br['auto-reload'] = br['auto-reload'] || {};
-  if (!WebSocket || ar.disabled) return;
-  if (window._ar) return;
-  window._ar = true;
-
-  var cacheBuster = function cacheBuster(url) {
-    var date = Math.round(Date.now() / 1000).toString();
-    url = url.replace(/(\&|\\?)cacheBuster=\d*/, '');
-    return url + (url.indexOf('?') >= 0 ? '&' : '?') + 'cacheBuster=' + date;
-  };
-
-  var browser = navigator.userAgent.toLowerCase();
-  var forceRepaint = ar.forceRepaint || browser.indexOf('chrome') > -1;
-
-  var reloaders = {
-    page: function page() {
-      window.location.reload(true);
-    },
-
-    stylesheet: function stylesheet() {
-      [].slice.call(document.querySelectorAll('link[rel=stylesheet]')).filter(function (link) {
-        var val = link.getAttribute('data-autoreload');
-        return link.href && val != 'false';
-      }).forEach(function (link) {
-        link.href = cacheBuster(link.href);
-      });
-
-      // Hack to force page repaint after 25ms.
-      if (forceRepaint) setTimeout(function () {
-        document.body.offsetHeight;
-      }, 25);
-    },
-
-    javascript: function javascript() {
-      var scripts = [].slice.call(document.querySelectorAll('script'));
-      var textScripts = scripts.map(function (script) {
-        return script.text;
-      }).filter(function (text) {
-        return text.length > 0;
-      });
-      var srcScripts = scripts.filter(function (script) {
-        return script.src;
-      });
-
-      var loaded = 0;
-      var all = srcScripts.length;
-      var onLoad = function onLoad() {
-        loaded = loaded + 1;
-        if (loaded === all) {
-          textScripts.forEach(function (script) {
-            eval(script);
-          });
-        }
-      };
-
-      srcScripts.forEach(function (script) {
-        var src = script.src;
-        script.remove();
-        var newScript = document.createElement('script');
-        newScript.src = cacheBuster(src);
-        newScript.async = true;
-        newScript.onload = onLoad;
-        document.head.appendChild(newScript);
-      });
-    }
-  };
-  var port = ar.port || 9485;
-  var host = br.server || window.location.hostname || 'localhost';
-
-  var connect = function connect() {
-    var connection = new WebSocket('ws://' + host + ':' + port);
-    connection.onmessage = function (event) {
-      if (ar.disabled) return;
-      var message = event.data;
-      var reloader = reloaders[message] || reloaders.page;
-      reloader();
-    };
-    connection.onerror = function () {
-      if (connection.readyState) connection.close();
-    };
-    connection.onclose = function () {
-      window.setTimeout(connect, 1000);
-    };
-  };
-  connect();
-})();
-/* jshint ignore:end */
-;require('initialize');
+require('initialize');
 //# sourceMappingURL=app.js.map

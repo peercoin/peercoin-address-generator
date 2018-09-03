@@ -83,11 +83,13 @@
         this.set({isPrivateKeyVisible: !this.get('isPrivateKeyVisible')})
       },
       reset() {
+        const dictionary = window.store.get('dictionary');
         delete window.store;
         window.store = null;
         window.store = new Store({
           wallets: [],
-          numberOfWallets: 1
+          numberOfWallets: 1,
+          dictionary
         });
         this.goto('/');
       },

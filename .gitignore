@@ -24,6 +24,7 @@ node_modules/
 
 # Brunch folder for temporary files.
 tmp/
+public/
 
 # Bower stuff.
 bower_components/

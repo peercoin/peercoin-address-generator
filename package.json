@@ -3,11 +3,12 @@
   "description": "Peercoin Address (Wallet) Generator",
   "private": true,
   "author": "Claudio Holanda",
-  "version": "1.1.0",
-  "repository": "",
+  "version": "1.2.0",
+  "repository": "https://github.com/peercoin/peercoin-address-generator.git",
   "scripts": {
     "start": "brunch watch --server -n",
-    "build": "brunch build --production"
+    "build": "brunch build",
+    "deploy": "npm run build && rm -rf ~/_temp_build_ppc && cp -R public ~/_temp_build_ppc && git stash && git checkout gh-pages && cp -a ~/temp_proj_public/. . && git add . && git commit -m 'Deploying.' && git push && rm -rf ~/temp_proj_public/ && checkout master && git stash pop"
   },
   "dependencies": {
     "qrious": "^4.0.2",

@@ -8,7 +8,7 @@
   "scripts": {
     "start": "brunch watch --server -n",
     "build": "brunch build",
-    "deploy": "npm run build && rm -rf ~/_temp_build_ppc && cp -R public ~/_temp_build_ppc && git stash && git checkout gh-pages && cp -a ~/_temp_build_ppc/. . && cp index.html 404.html && git add . && git commit -m 'Deploying.' && git push && rm -rf ~/_temp_build_ppc/ && checkout master && git stash pop"
+    "deploy": "npm run build && rm -rf ~/_temp_build_ppc && cp -R public ~/_temp_build_ppc && git stash && git checkout gh-pages && cp -a ~/_temp_build_ppc/. . && git add . && git commit -m 'Deploying.' && git push && rm -rf ~/_temp_build_ppc/ && git checkout master && git stash pop"
   },
   "dependencies": {
     "qrious": "^4.0.2",

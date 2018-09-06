@@ -13269,34 +13269,43 @@ function data() {
 };
 
 function actionDownloadTextFile() {
+  const publicAddress = window.store.get('wallets')[0].publicAddress;
+  const privateKey = window.store.get('wallets')[0].privateKey;
+
   const text = `
   Date issued: ${new Date()}
   
-  Public Address: ${window.store.get('publicAddress')}
+  Public Address: ${publicAddress}
   
-  Private Key (DO NOT SHARE): ${window.store.get('privateKey')}
+  Private Key (DO NOT SHARE): ${privateKey}
   `;
 
   return URL.createObjectURL(new Blob([text], {type: 'text/plain'}));
 };
 
 function actionGetMailBody() {
+  const publicAddress = window.store.get('wallets')[0].publicAddress;
+  const privateKey = window.store.get('wallets')[0].privateKey;
+
   const text = `
   Date issued: ${new Date()}
 
-  Public Address: ${window.store.get('publicAddress')}
+  Public Address: ${publicAddress}
   
-  Private Key (DO NOT SHARE): ${window.store.get('privateKey')}
+  Private Key (DO NOT SHARE): ${privateKey}
   `;
 
   return text;
 };
 
 function actionDownloadJSONFile() {
+  const publicAddress = window.store.get('wallets')[0].publicAddress;
+  const privateKey = window.store.get('wallets')[0].privateKey;
+
   const data = {
     dateIssued: new Date(),
-    publicAddress: window.store.get('publicAddress'),
-    privateKey: window.store.get('privateKey')
+    publicAddress: publicAddress,
+    privateKey: privateKey
   };
 
   return URL.createObjectURL(new Blob([JSON.stringify(data)], {type: 'application/json'}));

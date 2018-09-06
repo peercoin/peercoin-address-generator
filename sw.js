@@ -2,7 +2,7 @@
  * For each new deploy, change this version
  */
 
-const PRECACHE = '0.3';
+const PRECACHE = '0.4';
 const RUNTIME = 'PEERCOIN-WALLET-GENERATOR';
 
 

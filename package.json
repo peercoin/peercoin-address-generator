@@ -3,7 +3,7 @@
   "description": "Peercoin Address (Wallet) Generator",
   "private": true,
   "author": "Claudio Holanda",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "repository": "https://github.com/peercoin/peercoin-address-generator.git",
   "scripts": {
     "start": "brunch watch --server -n",

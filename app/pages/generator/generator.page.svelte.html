@@ -21,12 +21,38 @@
 <script>
   import roadtrip from 'roadtrip';
   import QRious from 'qrious';
-  import BigInteger from '../../helpers/peercoin/BigInteger';
-  import Peercoin from '../../helpers/peercoin/Peercoin';
-  import Base58 from '../../helpers/peercoin/Base58';
-  import ECurve from '../../helpers/peercoin/ECurve';
   import Icon from '../../components/icon/icon.component.svelte';
   import { isCompatible } from '../../helpers/checkCompatibility';
+
+  var bitcore = require("bitcore-lib");
+
+//
+// Set peercoin as default network
+//
+
+bitcore.Networks.add({
+  name: "peercoin",
+  alias: "ppcoin",
+  pubkeyhash: 0x37,
+  privatekey: 0xb7,
+  scripthash: 0x75,
+  xpubkey: 0x0488b21e,
+  xprivkey: 0x0488ade4
+});
+
+bitcore.Networks.add({
+  name: "peercoin-testnet",
+  alias: "ppcoin-test",
+  pubkeyhash: 0x6f,
+  privatekey: 0xef,
+  scripthash: 0xc4,
+  xpubkey: 0x043587cf,
+  xprivkey: 0x04358394
+});
+
+bitcore.Networks.defaultNetwork = bitcore.Networks.get("peercoin");
+
+
 
   export default {
     oncreate() {
@@ -130,7 +156,7 @@
           hasStarted: true,
           seedPercentage: (touches + 1) * 100 / totalTouches,
           touchList: touchList,
-          obfuscatedPartialSeed: Peercoin.Crypto.SHA256(touchList.join(''), null).repeat(10)
+          obfuscatedPartialSeed: bitcore.crypto.Hash.sha256(touchList.join('')).repeat(10)
         });
 
         this.addVisualPoint(e.touches[0].pageX, e.touches[0].pageY);
@@ -157,22 +183,14 @@
         const secret = `${randomSeed}:${initialTime}${touchList.join('')}${finalTime}`;
 
         // Generating peercoin address/priv. key
-        const secretHash = Peercoin.Crypto.SHA256("" + secret);
-        let privateKeyBNP2TH = BigInteger.fromByteArrayUnsigned(Peercoin.Crypto.hexToBytes(secretHash));
-        let pubKeyP2TH = ECurve.getPublicKey(privateKeyBNP2TH);
-        let pub_keyP2TH = ((pubKeyP2TH.yParity === "even") ? "02" : "03") + pubKeyP2TH.x.toString();    
-        let sha = Peercoin.Crypto.SHA256(Peercoin.Crypto.hexToBytes(pub_keyP2TH), null);
-        let hash160 = Peercoin.Crypto.RIPEMD160(Peercoin.Crypto.hexToBytes(sha), null);
-        let hashAndBytes = Peercoin.Crypto.hexToBytes(hash160);
-        hashAndBytes.unshift(Peercoin.Address.networkVersion);//Peercoin Public Address lead Hex value 
-        let versionAndRipe = Peercoin.Crypto.bytesToHex(hashAndBytes);
-        let check = this.computeChecksum(versionAndRipe);
-        let address = Base58.encode(Peercoin.Crypto.hexToBytes(versionAndRipe + check.checksum));
-        
-        let pkWIF = "B7" + secretHash + "01"; //compressionflag
-        let checkpr = this.computeChecksum(pkWIF);
-        let addresspriv = Base58.encode(Peercoin.Crypto.hexToBytes(pkWIF + checkpr.checksum));
-
+ 
+        const secretHash =  bitcore.crypto.Hash.sha256("" + secret); 
+        const hxId = Buffer.from(secretHash, "hex");
+        const bn = bitcore.crypto.BN.fromBuffer(hxId);
+        const privKey = new bitcore.PrivateKey(bn); 
+        const address = privKey.toPublicKey().toAddress().toString();
+        const addresspriv = privKey.toWIF();
+ 
         // Send generated Address to new page
         window.store.set({
           wallets: wallets.concat({
@@ -182,7 +200,7 @@
             publicQRCode: new QRious({value: address, size: 200 * 4, level: 'L'}).toDataURL(),
           })
         });
-      },
+      }/*,
       computeChecksum(hx) {
         var firstSHA = Peercoin.Crypto.SHA256(Peercoin.Crypto.hexToBytes(hx));
         var secondSHA = Peercoin.Crypto.SHA256(Peercoin.Crypto.hexToBytes(firstSHA));
@@ -190,7 +208,7 @@
           checksum: secondSHA.substr(0,8).toUpperCase(),
           nonChecksum: secondSHA.substr(8,secondSHA.length).toUpperCase()
         };
-      }
+      }*/
     },
     components: {
       Icon

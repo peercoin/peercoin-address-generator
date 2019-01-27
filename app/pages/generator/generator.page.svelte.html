@@ -24,13 +24,15 @@
   import Icon from '../../components/icon/icon.component.svelte';
   import { isCompatible } from '../../helpers/checkCompatibility';
 
-  var bitcore = require("bitcore-lib");
+  import {Networks as bitcoreNetworks} from "bitcore-lib";
+  import {crypto as bitcorecrypto} from "bitcore-lib";
+  import {PrivateKey as bitcorePrivateKey} from "bitcore-lib";
 
 //
 // Set peercoin as default network
 //
 
-bitcore.Networks.add({
+bitcoreNetworks.add({
   name: "peercoin",
   alias: "ppcoin",
   pubkeyhash: 0x37,
@@ -40,7 +42,7 @@ bitcore.Networks.add({
   xprivkey: 0x0488ade4
 });
 
-bitcore.Networks.add({
+bitcoreNetworks.add({
   name: "peercoin-testnet",
   alias: "ppcoin-test",
   pubkeyhash: 0x6f,
@@ -50,7 +52,7 @@ bitcore.Networks.add({
   xprivkey: 0x04358394
 });
 
-bitcore.Networks.defaultNetwork = bitcore.Networks.get("peercoin");
+bitcoreNetworks.defaultNetwork = bitcoreNetworks.get("peercoin");
 
 
 
@@ -156,7 +158,7 @@ bitcore.Networks.defaultNetwork = bitcore.Networks.get("peercoin");
           hasStarted: true,
           seedPercentage: (touches + 1) * 100 / totalTouches,
           touchList: touchList,
-          obfuscatedPartialSeed: bitcore.crypto.Hash.sha256(touchList.join('')).repeat(10)
+          obfuscatedPartialSeed: bitcorecrypto.Hash.sha256(touchList.join('')).repeat(10)
         });
 
         this.addVisualPoint(e.touches[0].pageX, e.touches[0].pageY);
@@ -184,10 +186,10 @@ bitcore.Networks.defaultNetwork = bitcore.Networks.get("peercoin");
 
         // Generating peercoin address/priv. key
  
-        const secretHash =  bitcore.crypto.Hash.sha256("" + secret); 
+        const secretHash =  bitcorecrypto.Hash.sha256("" + secret); 
         const hxId = Buffer.from(secretHash, "hex");
-        const bn = bitcore.crypto.BN.fromBuffer(hxId);
-        const privKey = new bitcore.PrivateKey(bn); 
+        const bn = bitcorecrypto.BN.fromBuffer(hxId);
+        const privKey = new bitcorePrivateKey(bn); 
         const address = privKey.toPublicKey().toAddress().toString();
         const addresspriv = privKey.toWIF();
  

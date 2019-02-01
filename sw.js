@@ -2,7 +2,7 @@
  * For each new deploy, change this version
  */
 
-const PRECACHE = '0.4';
+const PRECACHE = '0.5';
 const RUNTIME = 'PEERCOIN-WALLET-GENERATOR';
 
 
@@ -19,7 +19,9 @@ const urlsToCache = [
   '/img/logo.svg',
   '/img/share.svg',
   '/locales/en-US.json',
-  '/locales/pt-BR.json'
+  '/locales/pt-BR.json',
+  '/locales/de-DE.json',
+  '/locales/pl-PL.json'
 ];
 
 // The install handler takes care of precaching the resources we always need.

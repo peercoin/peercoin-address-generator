@@ -1,0 +1,57 @@
+{
+  "language": "pl-PL",
+  "index": {
+    "title": "Generator Portfela",
+    "subtitle": "Aby wygenerowaÊ nowy portfel, po prostu kliknij w przycisk na dole i podπøaj za instrukcjami",
+    "start": "Start",
+    "aboutLink": "O",
+    "options": {
+      "numberOfWallets": "Liczba portfeli do wygenerowania (hurtowe generowanie):",
+      "language": "Wybierz inny jÍzyk:"
+    }
+  },
+  "about": {
+    "titleAbout": "O",
+    "backBtn": "Wstecz",
+    "about1": "Ten generator portfel zosta≥ zbudowany od zera dla Peercoin'a.",
+    "about2": "G≥Ûwnym celem jest dostarczenie dobrych wraøeÒ dla uøytkownikÛw mobilnych, ktÛrzy bywajπ zapomniani przez klasyczne generatory portfeli. Uøywamy najnowszych technologii w celu dostarczeniu lepszych wraøeÒ, wiÍc proszÍ zrozum, øe starsze mogπ nie dzia≥aÊ tak jak powinny (albo w ogÛle) z tπ aplikacjπ.",
+    "titlePeercoin": "Peercoin",
+    "peercoin1": "Peercoin jest pierwszπ kryptowalutπ, ktÛra zaimplementowa≥em hybrydowy Proof of Work (POW) i Proof of Stake (POS) konsensus. Stworzona w 2012, dzia≥a juø ponad<b>szeúÊ lat</b> z zauwaøalnie mniejszπ zuøyciem energii niø czyste PoW (kopane) kryptowaluty takie jak Bitcoin. Przez te szeúÊ lat Peercoin night nie mia≥ øadnego udzia≥u w pre-miningu (udostÍpnienie tokenÛw w pierwszych blokach kryptowaluty, przed jej publicznym startem), nieuczciwymi ICO czy krytycznymi naruszeniami bezpieczeÒstwa.",
+    "titleDisclaimer": "O",
+    "disclaimer1": "ZespÛ≥ Peercoin'a, deweloper tego portfela, czy ktokolwiek zaangaøowany z Peercoin'em nie ponosi øadnej odpowiedzialnoúci za pieniπdze stracone w skutek generowania portfela przez to narzÍdzie, albo jakiekolwiek inne dotyczπce Peercoin'a albo inne kryptowaluty. W≥aúciciel wygenerowanego portfela jest odpowiedzialny za swoje pieniπdze i dlatego powinien postÍpowaÊ zgodnie ze wszystkimi krokami bezpieczeÒstwa w celu zapewnia im bezpieczeÒstwa. Robimy wszystko co moøliwe, aby utrzymaÊ to narzÍdzie zaktualizowane i bezpieczne. To narzÍdzie jest w 100% otwartoürÛd≥owe.Jeúli znajdziesz jakieú bugi czy b≥Ídy, proszÍ zawiadom nas o tym w naszym repozytorium.",
+    "disclaimer2": "G≥Ûwnym celem jest dostarczenie dobrych wraøeÒ dla uøytkownikÛw mobilnych, ktÛrzy bywajπ zapomniani przez klasyczne generatory portfeli. Uøywamy najnowszych technologii w celu dostarczeniu lepszych wraøeÒ, wiÍc proszÍ zrozum, øe starsze mogπ nie dzia≥aÊ tak jak powinny (albo w ogÛle) z tπ aplikacjπ.",
+    "titleCredits": "O",
+    "credits1": "Jest to otwartoürÛd≥owe narzÍdzie, i jako takie, posiada biblioteki zewnÍtrzne (3rd party) z odpowiedimi licencjami. Mogπ one byÊ znalezione w repozytorium tej aplikacji.",
+    "credits2": "Jeúli znajdziesz brak brak odpowiednich przypisÛw, proszÍ otwÛrz spÛr w naszym repozytorium.",
+    "credits3": "Stworzone przez <a href=\"https://twitter.com/kazzkiq/\" target=\"_blank\">@Kazzkiq</a>, moøliwe dziÍki spo≥ecznoúci Peercoin'a."
+  },
+  "generator": {
+    "title": "Przesuwaj palec w celu zapewnienia losowoúci.",
+    "subtitle1": "Uøyj swÛj palec, aby zaczπÊ przesuwaÊ losowo po ekranie, pomoøe to wygenerowanie unikatowego portela.",
+    "subtitle2": "<b>Moøesz zaczπÊ kiedy zechcesz.</b> Poinformujemy CiÍ kiedy proces bÍdzie zakoÒczony.",
+    "keepSwiping": "Kontynuuj przesuwanie"
+  },
+  "wallet": {
+    "title": "Portfel wygenerowany!",
+    "titlePlural": "Portfele wygenerowane!",
+    "titlePrint": "Ten portfel ma wymiary 15cmx8cm, z≥oøony zajmuje rozmiar karty biznesowej (5cmx8cm).",
+    "address": "Adres",
+    "privateKey": "Klucz prywatny",
+    "makeSure": "Sprawdü czy nikt nie obserwuje",
+    "privateQRCode": "Klucz prywatny kod QR",
+    "clearBtn": "WyczyúÊ dane i zacznij od nowa",
+    "menu": {
+      "saveText": "Zapisz lokalnie .txt",
+      "copyAddress": "Skopiuj <b> adres/klucz prywatny do schowka",
+      "sendEmail": "Wyúlij za pomocπ email'a",
+      "saveJSON": "Zapis dane JSON",
+      "paperWallet": "Papierowy portfel (drukuj)"
+    },
+    "multipleWallets": {
+      "titlePrint": "Te portfele majπ wymiary 15cmx8cm, z≥oøone zajmujπ rozmiar karty biznesowej (5cmx8cm).",
+      "printBtn": "Papierowy portfel (drukuj)",
+      "publicAddress": "Adres publiczny:",
+      "privateKey": "Klucz prywatny:"
+    }
+  }
+}

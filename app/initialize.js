@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', main);
 function main () {
   registerSW();
 
-  window['allowedLanguages'] = ['en-US', 'pt-BR'];
+  window['allowedLanguages'] = ['en-US', 'pt-BR', 'de-DE', 'pl-PL'];
   const allowedLanguages = window['allowedLanguages'];
   let language = localStorage.getItem('ppc-user-language') || navigator.language || 'en-US';
 

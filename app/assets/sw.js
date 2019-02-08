@@ -21,7 +21,8 @@ const urlsToCache = [
   '/locales/en-US.json',
   '/locales/pt-BR.json',
   '/locales/de-DE.json',
-  '/locales/pl-PL.json'
+  '/locales/pl-PL.json',
+  '/locales/ru-RU.json'
 ];
 
 // The install handler takes care of precaching the resources we always need.

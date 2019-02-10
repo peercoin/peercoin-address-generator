@@ -11137,7 +11137,7 @@ document.addEventListener('DOMContentLoaded', main);
 function main() {
   registerSW();
 
-  window['allowedLanguages'] = ['en-US', 'pt-BR', 'de-DE', 'pl-PL', 'ru-RU'];
+  window['allowedLanguages'] = ['en-US', 'pt-BR', 'de-DE', 'pl-PL', 'ru-RU', 'nl-NL'];
   var allowedLanguages = window['allowedLanguages'];
   var language = localStorage.getItem('ppc-user-language') || navigator.language || 'en-US';
 

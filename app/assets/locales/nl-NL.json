@@ -1,0 +1,57 @@
+{
+  "language": "nl-NL",
+  "index": {
+    "title": "Portemonnee Generator",
+    "subtitle": "Om een nieuwe portemonnee te vervaardigen, klik de knop hieronder en volg de instructies.",
+    "start": "Start",
+    "aboutLink": "over",
+    "options": {
+      "numberOfWallets": "Aantal te vervaardigen portemonnees (Bulk vervaardiging):",
+      "language": "Kies een andere taal:"
+    }
+  },
+  "about": {
+    "titleAbout": "Over",
+    "backBtn": "Terug",
+    "about1": "Deze portemonnee generator is van grond af aan opgebouwd voor Peercoin.",
+    "about2": "Het hoofddoel is om een goed en snelle belevenis aan te bieden voor mobiele gebruikers, wat lijkt te ontbreken bij klassieke wallet generatoren. We gebruiken de meest geavanceerde browser technologieen om deze betere belevenis aan te bieden, dus begrijp alstublieft dat oudere browsers mogelijk niet goed (of zelfs helemaal niet) werken met deze applicatie.",
+    "titlePeercoin": "Peercoin",
+    "peercoin1": "Peercoin is het eerste cryptogeld dat het hybride "Proof of Work" (POW) en "Proof of Stake" (POS) algorithme implementeert. Ontwikkeld in 2012, het is inmiddels actief voor meer dan <b>zes jaar</b> met veel minder energiegebruik dan puur POW cryptogeld zoals Bitcoin. Gedurende deze zes jaar had Peercoin ook nooit enige betrokkenheid met pre-mining, frauduleuze ICOs of kritieke veiligheids problemen.",
+    "titleDisclaimer": "Over",
+    "disclaimer1": "Peercoin team, de portemonnee ontwikkelaar, of andere betrokkenen met Peercoin zijn niet verantwoordelijk voor het verlies van geld door het gebruik van deze portemonnee generator, of andere middelen betreffende Peercoin of ander cryptogeld. De eigenaar van de vervaardigde portemonnee is verantwoordelijk voor het geld en zal daarom alle veiligheidstappen volgen om het geld veilig te houden. Wij doen ons best om deze applicatie zo veilig en actueel mogelijk te houden. Deze applicatie is 100% open-source. Indien je fouten or problemen vindt, rapporteer deze dan in onze code bibliotheek.",
+    "disclaimer2": "Het hoofddoel is om een goed en snelle belevenis aan te bieden voor mobiele gebruikers, wat lijkt te ontbreken bij klassieke wallet generatoren. We gebruiken de meest geavanceerde browser technologieen om deze betere belevenis aan te bieden, dus begrijp alstublieft dat oudere browsers mogelijk niet goed (of zelfs helemaal niet) werken met deze applicatie.",
+    "titleCredits": "Over",
+    "credits1": "Dit is een open-source applicatie, en daarvoor, bevat 3rd-partij code bibliotheken met bijbehorende licenties. Deze zijn in deze applicatie code bibliotheek beschikbaar.",
+    "credits2": "Indien je vindt dat toeschrijvingen ontbreken, open dan een probleem in onze code bibliotheek.",
+    "credits3": "Ontwikeeld door <a href=\"https://twitter.com/kazzkiq/\" target=\"_blank\">@Kazzkiq</a>, mogelijk gemaakt door Peercoin Gemeenschap."
+  },
+  "generator": {
+    "title": "Veeg vinger Swipe finger voor willekeur.",
+    "subtitle1": "Gebruik je vinger om willkeurig over het scherm te vegen, dit helpt met uniciteit this bij het vervaardigen van je portemonnee.",
+    "subtitle2": "<b>Je kan op elk moment beginnen.</b> We laten je weten wanneer het proces klaar is.",
+    "keepSwiping": "Blijf vegen"
+  },
+  "wallet": {
+    "title": "Portemonnee vervaardigd!",
+    "titlePlural": "Portemonnees vervaardigd!",
+    "titlePrint": "Deze portemonnee is 15cmx8cm, gevouwen is het even groot als een visitekaartje (5cmx8cm).",
+    "address": "Adres",
+    "privateKey": "Persoonlijk sleutel",
+    "makeSure": "Weet zeker dat niemand meekijkt",
+    "privateQRCode": "Persoonlijk sleutel QR Code",
+    "clearBtn": "Wis gegevens en begin opnieuw.",
+    "menu": {
+      "saveText": "Bewaar .txt lokaal",
+      "copyAddress": "Kopieer <b>address/priv. key</b> naar klembord",
+      "sendEmail": "Via email zenden",
+      "saveJSON": "Bewaar JSON gegevens",
+      "paperWallet": "Papieren Portemonnee (afdrukken)"
+    },
+    "multipleWallets": {
+      "titlePrint": "Deze portemonnees zijn 15cmx8cm, en zijn gevouwen even groot als een visitekaartje (5cmx8cm).",
+      "printBtn": "Papieren Portemonnee (afdrukken)",
+      "publicAddress": "Openbaar adres:",
+      "privateKey": "Persoonlijke sleutel:"
+    }
+  }
+}

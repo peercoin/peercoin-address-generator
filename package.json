@@ -19,11 +19,11 @@
     "babel-brunch": "^6.1.1",
     "babel-preset-latest": "^6.24.1",
     "brunch": "^2",
-    "clean-css-brunch": "^2",
+    "clean-css-brunch": "^3.0.0",
     "closure-compiler-brunch": "^0.1.6",
-    "cssnano-brunch": "^1.1.8",
-    "postcss-brunch": "^2.0.5",
-    "sass-brunch": "^2.10.4",
+    "cssnano-brunch": "^1.2.1",
+    "postcss-brunch": "^3.0.0",
+    "sass-brunch": "^3.0.1",
     "sveltejs-brunch": "0.0.5"
   }
 }
